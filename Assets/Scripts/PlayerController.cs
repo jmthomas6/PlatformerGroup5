@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Collider2D _col;
 
     [SerializeField]
-    private float _acceleration, _speed, _slowLimit, _jumpVel;
+    private float _acceleration, _speed, _slowLimit, _jumpVelocity;
 
     private bool _grounded, _doubleJump;
 
@@ -20,41 +20,41 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 newVel = _rb.velocity;
+        Vector2 newVelocity = _rb.velocity;
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
-            newVel += Vector2.left * _acceleration;
+            newVelocity += Vector2.left * _acceleration;
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
-            newVel += Vector2.right * _acceleration;
+            newVelocity += Vector2.right * _acceleration;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (_grounded)
             {
-                newVel += Vector2.up * _jumpVel;
+                newVelocity += Vector2.up * _jumpVelocity;
             }
             else if (_doubleJump)
             {
-                newVel += Vector2.up * _jumpVel;
+                newVelocity += Vector2.up * _jumpVelocity;
                 _doubleJump = false;
             }
         }
 
-        if (newVel.x > _speed)
+        if (newVelocity.x > _speed)
         {
-            newVel.x = _speed;
+            newVelocity.x = _speed;
         }
-        if (newVel.x < -_speed)
+        if (newVelocity.x < -_speed)
         {
-            newVel.x = -_speed;
+            newVelocity.x = -_speed;
         }
-        if (newVel.x < _slowLimit && newVel.x > -_slowLimit)
+        if (newVelocity.x < _slowLimit && newVelocity.x > -_slowLimit)
         {
-            newVel.x = 0;
+            newVelocity.x = 0;
         }
-        _rb.velocity = newVel;
+        _rb.velocity = newVelocity;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
