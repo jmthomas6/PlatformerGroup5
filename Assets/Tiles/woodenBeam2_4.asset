@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: woodenBeam2_4
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -7417845980866651523, guid: c03df575e288c2e41b6716e45618baf5,
+  m_Sprite: {fileID: 7854771026228903302, guid: c03df575e288c2e41b6716e45618baf5,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
