@@ -6,10 +6,10 @@ public class RoomSpawner : MonoBehaviour
 {
     public int openingDirection;
     // 1 need bottom door
-    // 2 nee top door
+    // 2 need top door
     // 3 need left door
     // 4 need right door
-
+    public GameObject startRoom;
 
     private RoomTemplates templates;
     private int rand;
