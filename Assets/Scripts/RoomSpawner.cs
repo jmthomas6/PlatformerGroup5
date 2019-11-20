@@ -9,7 +9,7 @@ public class RoomSpawner : MonoBehaviour
     // 2 need top door
     // 3 need left door
     // 4 need right door
-    public GameObject startRoom;
+
 
     private RoomTemplates templates;
     private int rand;
@@ -52,9 +52,15 @@ public class RoomSpawner : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("RoomSpawnPoint") && other.GetComponent<RoomSpawner>().spawned == true)
+        if(other.CompareTag("RoomSpawnPoint"))
         {
-            Destroy(gameObject);
+            if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+            {
+                Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
+                Destroy(other.gameObject);
+            }
+            spawned = true;
+            
         }
     }
 

@@ -1386,69 +1386,69 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &778639803
+--- !u!1001 &882188651
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3644633309080805500, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 316689875013688548, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_Name
       value: TBLR Room
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.5
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644633309080805501, guid: c9db24e807aeee54fa17c35a96ac05ef,
+    - target: {fileID: 64541348084380236, guid: c9db24e807aeee54fa17c35a96ac05ef,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
@@ -1634,25 +1634,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomRooms:
-  - {fileID: 8263691487264385700, guid: 71561baa77b4ea5408c067663bf295f0, type: 3}
-  - {fileID: 1526427619117090208, guid: 4c6bf9632ef07cd4284885102551ad6f, type: 3}
-  - {fileID: 1686129559863064131, guid: a2f34d3ab8e5a0e4fa929278828cf3c2, type: 3}
-  - {fileID: 3967444441112811106, guid: a6e20973f9d2e3249b902a556051adc2, type: 3}
+  - {fileID: 3255499532587177172, guid: 71561baa77b4ea5408c067663bf295f0, type: 3}
+  - {fileID: 8179905464455998646, guid: 34e57df218b5ede4e9f98aced2e424d9, type: 3}
+  - {fileID: 3885241860640675066, guid: a2f34d3ab8e5a0e4fa929278828cf3c2, type: 3}
+  - {fileID: 7455951570717449119, guid: a6e20973f9d2e3249b902a556051adc2, type: 3}
   topRooms:
-  - {fileID: 4255899816754366774, guid: 7526e1d7a3a446f48994fa6e88af1b52, type: 3}
-  - {fileID: 3967444441112811106, guid: a6e20973f9d2e3249b902a556051adc2, type: 3}
-  - {fileID: 7374049436463544687, guid: 4368b0f6ba03fe74486625edb38160d0, type: 3}
-  - {fileID: 8522699724986828110, guid: e07e9f20f932d954aa91e851b28f25ed, type: 3}
+  - {fileID: 4211297817144197291, guid: 7526e1d7a3a446f48994fa6e88af1b52, type: 3}
+  - {fileID: 7455951570717449119, guid: a6e20973f9d2e3249b902a556051adc2, type: 3}
+  - {fileID: 4841207766400474742, guid: 4368b0f6ba03fe74486625edb38160d0, type: 3}
+  - {fileID: 4949453908536702730, guid: e07e9f20f932d954aa91e851b28f25ed, type: 3}
   leftRooms:
-  - {fileID: 241908470553920486, guid: 8c9258f9bd8098749adc4204328e34d4, type: 3}
-  - {fileID: 2299807402571793318, guid: d2cd4679ebcd74a4c9d2212cf446cfb8, type: 3}
-  - {fileID: 1526427619117090208, guid: 4c6bf9632ef07cd4284885102551ad6f, type: 3}
-  - {fileID: 7374049436463544687, guid: 4368b0f6ba03fe74486625edb38160d0, type: 3}
+  - {fileID: 1034908064953102104, guid: d2cd4679ebcd74a4c9d2212cf446cfb8, type: 3}
+  - {fileID: 8179905464455998646, guid: 34e57df218b5ede4e9f98aced2e424d9, type: 3}
+  - {fileID: 4867320746305626061, guid: 8c9258f9bd8098749adc4204328e34d4, type: 3}
+  - {fileID: 4841207766400474742, guid: 4368b0f6ba03fe74486625edb38160d0, type: 3}
   rightRooms:
-  - {fileID: 1686129559863064131, guid: a2f34d3ab8e5a0e4fa929278828cf3c2, type: 3}
-  - {fileID: 4984160974258258824, guid: 315bca9cca1c0c549a0943a1eb2265db, type: 3}
-  - {fileID: 241908470553920486, guid: 8c9258f9bd8098749adc4204328e34d4, type: 3}
-  - {fileID: 7374049436463544687, guid: 4368b0f6ba03fe74486625edb38160d0, type: 3}
+  - {fileID: 3885241860640675066, guid: a2f34d3ab8e5a0e4fa929278828cf3c2, type: 3}
+  - {fileID: 4867320746305626061, guid: 8c9258f9bd8098749adc4204328e34d4, type: 3}
+  - {fileID: 2933844829252626480, guid: 315bca9cca1c0c549a0943a1eb2265db, type: 3}
+  - {fileID: 4949453908536702730, guid: e07e9f20f932d954aa91e851b28f25ed, type: 3}
+  closedRoom: {fileID: 4069857135775826968, guid: d73179446ba0c654eb692f1a8b8fc787,
+    type: 3}
 --- !u!4 &1596862103
 Transform:
   m_ObjectHideFlags: 0
@@ -1665,7 +1667,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1796836294
 GameObject:
@@ -1683,7 +1685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1796836295
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1762,7 +1764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &1949640519
 Grid:
   m_ObjectHideFlags: 0
@@ -1788,7 +1790,7 @@ Transform:
   m_Children:
   - {fileID: 329803557}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1998860083
 GameObject:
@@ -1906,7 +1908,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2022035014}
-  - component: {fileID: 2022035015}
   m_Layer: 0
   m_Name: Start Room
   m_TagString: Untagged
@@ -1928,15 +1929,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2022035015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2022035013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2ea4fe9ab9471c4f9046e8a84cb1052, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

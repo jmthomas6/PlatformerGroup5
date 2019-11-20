@@ -8,6 +8,7 @@ TagManager:
   - RoomSpawnPoint
   - GroundTrigger
   - Rooms
+  - closedRoom
   layers:
   - Default
   - TransparentFX
