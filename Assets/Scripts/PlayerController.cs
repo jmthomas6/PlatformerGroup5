@@ -8,9 +8,7 @@ public class PlayerController : MonoBehaviour
     //private Collider2D _col;
 
     [SerializeField]
-    private float _acceleration, _speed, _slowLimit, _jumpVelocity, _attackCooldown;
-    [SerializeField]
-    private Collider2D _groundTrigger, attackTrigger;
+    private float _acceleration, _speed, _slowLimit, _jumpVelocity, _attackCooldown, _climbSpeed;
     [SerializeField]
     private Animator _anim;
     [SerializeField]
@@ -19,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     [SerializeField]
     private Transform _parent;
+    [SerializeField]
+    private GameObject _attackObj;
     [SerializeField]
     private SpriteRenderer _rend;
     [SerializeField]
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        _attackTimer += Time.deltaTime;
         if (!_freezeMovement)
         {
 
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
                 newVelocity += Vector2.right * _acceleration;
                 Climb();
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
             {
                 if (_grounded)
                 {
@@ -94,26 +95,20 @@ public class PlayerController : MonoBehaviour
             }
             _rb.velocity = newVelocity;
 
-            _attackTimer += Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Z) && _attackTimer > _attackCooldown)
+            if (Input.GetKeyDown(KeyCode.X) && _attackTimer > _attackCooldown)
             {
-                Attack();
+                StartCoroutine(Attack());
                 _attackTimer = 0f;
             }
 
             UpdateAnim();
 
             //REMOVE LATER, REPLACE WITH DIST CHECK
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 _inCombat = !_inCombat;
             }
         }
-    }
-
-    private void Attack()
-    {
-        _anim.SetTrigger("Attack");
     }
 
     private void Climb()
@@ -157,17 +152,54 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator Attack()
+    {
+        _anim.SetTrigger("Attack");
+        _freezeMovement = true;
+        _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        yield return new WaitForSeconds(0.1f);
+
+        _attackObj.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+
+        _attackObj.SetActive(false);
+        _freezeMovement = false;
+        _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        yield return null;
+    }
+
     private IEnumerator ClimbAnimation()
     {
         _freezeMovement = true;
         _rb.constraints = RigidbodyConstraints2D.FreezeAll;
         _anim.enabled = false;
+        Vector3 prevPos = this._parent.transform.position;
 
         _rend.sprite = _climbFrames[0];
         _rend.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-        yield return new WaitForSeconds(2f);
+        _rend.transform.localPosition = new Vector3(0.25f, -0.1f, 0f);
+        yield return new WaitForSeconds(_climbSpeed);
+
+        _rend.sprite = _climbFrames[1];
+        _rend.transform.localRotation = Quaternion.Euler(0f, 0f, -45f);
+        _rend.transform.localPosition = new Vector3(0.1f, 0.5f, 0f);
+        yield return new WaitForSeconds(_climbSpeed);
+
+        _rend.sprite = _climbFrames[2];
+        _rend.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        _rend.transform.localPosition = new Vector3(0f, 0f, 0f);
+        prevPos += new Vector3(-(_parent.transform.localScale.x * 0.5f), 0.75f, 0f);
+        _parent.transform.position = prevPos;
+        yield return new WaitForSeconds(_climbSpeed);
+
+        _rend.sprite = _climbFrames[3];
+        yield return new WaitForSeconds(_climbSpeed);
+
+        _rend.sprite = _climbFrames[4];
+        yield return new WaitForSeconds(_climbSpeed);
 
         _rend.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        _rend.transform.localPosition = new Vector3(0f, 0f, 0f);
         _freezeMovement = false;
         _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         _anim.enabled = true;
