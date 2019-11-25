@@ -5,18 +5,16 @@ using UnityEngine;
 public class RoomSpawner : MonoBehaviour
 {
     public int openingDirection;
-    // 1 need bottom door
-    // 2 need top door
-    // 3 need left door
-    // 4 need right door
-
 
     private RoomTemplates templates;
     private int rand;
     private bool spawned = false;
 
+    public float waitTime = 4f; 
+
      void Start()
     {
+        Destroy(gameObject, waitTime);
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         Invoke("Spawn", 0.1f);
     }
@@ -52,7 +50,7 @@ public class RoomSpawner : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("RoomSpawnPoint"))
+        if (other.CompareTag("RoomSpawnPoint"))
         {
             if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
@@ -60,8 +58,9 @@ public class RoomSpawner : MonoBehaviour
                 Destroy(other.gameObject);
             }
             spawned = true;
-            
+
         }
+
     }
 
 }

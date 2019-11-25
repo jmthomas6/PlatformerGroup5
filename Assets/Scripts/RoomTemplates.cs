@@ -15,21 +15,30 @@ public class RoomTemplates : MonoBehaviour
     public List<GameObject> roomList;
 
     public float waitTime;
-    public bool spawnBoss;
-    public GameObject boss;
+    public bool spawnKey;
+    public bool spawnDoor;
+    public GameObject key;
+    public GameObject door;
+
 
      void Update()
     {
-        if (waitTime <= 0 && spawnBoss == false)
+        if (waitTime <= 0 && spawnDoor == false && spawnDoor == false)
         {
             for (int i = 0; i < roomList.Count; i++)
             {
                 if(i == roomList.Count - 1)
                 {
-                    Instantiate(boss, roomList[i].transform.position, Quaternion.identity);
-                    spawnBoss = true;
+                    Instantiate(door, roomList[i].transform.position, Quaternion.identity);
+                    spawnDoor = true;
+                }
+                if (i == roomList.Count / 2)
+                {
+                    Instantiate(key, roomList[i].transform.position, Quaternion.identity);
+                    spawnKey = true;
                 }
             }
+
         }
         else
         {
