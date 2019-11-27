@@ -500,9 +500,11 @@ MonoBehaviour:
   closedRoom: {fileID: 4069857135775826968, guid: d73179446ba0c654eb692f1a8b8fc787,
     type: 3}
   roomList: []
-  waitTime: 0
-  spawnBoss: 0
-  boss: {fileID: 0}
+  waitTime: 2
+  spawnKey: 0
+  spawnDoor: 0
+  key: {fileID: 5644494111810433050, guid: 87df08d53235b1d418fe3739aaf0e764, type: 3}
+  door: {fileID: 604766127455966173, guid: 6057ea50837541446914d324a04fafed, type: 3}
 --- !u!4 &1596862103
 Transform:
   m_ObjectHideFlags: 0
@@ -533,7 +535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1796836295
 SpriteRenderer:
   m_ObjectHideFlags: 0

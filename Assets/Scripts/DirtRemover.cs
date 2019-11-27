@@ -6,9 +6,9 @@ public class DirtRemover : MonoBehaviour
 {
      void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Wall"))
+        if (other.CompareTag("RoomSpawnPoint"))
         {
-            Debug.LogError("tagged wall");
+            Debug.LogError("tagged Spawn Point");
             Destroy(gameObject);
         }
     }
