@@ -86,7 +86,6 @@ public class RoomManager : MonoBehaviour
                 if (surroundingCount < 2)
                 {
                     _gateIndex = _roomCoords.IndexOf(x);
-                    // BLOCK OFF SURROUNDING CHUNKS
                 }
             }
             if (_gateIndex == 0)
@@ -105,8 +104,85 @@ public class RoomManager : MonoBehaviour
                 }
             }
         }
+        if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.up))
+        {
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.left);
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.right);
+            CloseFirstArea(_roomCoords[_gateIndex] + Vector2.down);
+        }
+        else if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.down))
+        {
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.left);
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.right);
+            CloseFirstArea(_roomCoords[_gateIndex] + Vector2.up);
+        }
+        else if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.left))
+        {
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.up);
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.down);
+            CloseFirstArea(_roomCoords[_gateIndex] + Vector2.right);
+        }
+        else if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.right))
+        {
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.up);
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.down);
+            CloseFirstArea(_roomCoords[_gateIndex] + Vector2.left);
+        }
+
+        
+        //Iterate second group
+        while (_roomCoords.Count < (_roomCount * 2))
+        {
+            foreach (Vector2 x in _roomCoords)
+            {
+                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.up))
+                {
+                    _tempCoords.Add(x + Vector2.up);
+                }
+                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.down))
+                {
+                    _tempCoords.Add(x + Vector2.down);
+                }
+                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.left))
+                {
+                    _tempCoords.Add(x + Vector2.left);
+                }
+                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.right))
+                {
+                    _tempCoords.Add(x + Vector2.right);
+                }
+            }
+            foreach (Vector2 x in _tempCoords)
+            {
+                _roomCoords.Add(x);
+            }
+            _tempCoords.Clear();
+        }
 
         // END ROOM
+        float roomDist = 0;
+        Vector2 furthestRoom;
+        foreach (Vector2 x in _roomCoords)
+        {
+            if (Vector2.Distance(Vector2.zero, x) > roomDist)
+            {
+                roomDist = Vector2.Distance(Vector2.zero, x);
+                furthestRoom = x;
+            }
+        }
+        /*
+        if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.left))
+        {
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.up);
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.down);
+            CloseFirstArea(_roomCoords[_gateIndex] + Vector2.right);
+        }
+        else if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.right))
+        {
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.up);
+            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.down);
+            CloseFirstArea(_roomCoords[_gateIndex] + Vector2.left);
+        }*/
 
         StartCoroutine(SpawnRooms());
         yield return null;
@@ -212,5 +288,21 @@ public class RoomManager : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    private void CloseFirstArea(Vector2 exemption)
+    {
+        foreach (Vector2 x in _roomCoords)
+        {
+            if (x + Vector2.up != exemption && CheckRoomCoords(x + Vector2.up))
+                _blockedCoords.Add(x + Vector2.up);
+            if (x + Vector2.down != exemption && CheckRoomCoords(x + Vector2.down))
+                _blockedCoords.Add(x + Vector2.down);
+            if (x + Vector2.left != exemption && CheckRoomCoords(x + Vector2.left))
+                _blockedCoords.Add(x + Vector2.left);
+            if (x + Vector2.right != exemption && CheckRoomCoords(x + Vector2.right))
+                _blockedCoords.Add(x + Vector2.right);
+        }
+        _roomCoords.Add(exemption);
     }
 }
