@@ -367,6 +367,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8798402512016814281a433c0f1b1291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rooms:
+  - {fileID: 4611694593753075060, guid: 24f587d2b3d8bb645b91643b53436a6f, type: 3}
+  _startRoom: {fileID: 4997071533247402702, guid: e5da52f6dab360c4286752ca5f9a372a,
+    type: 3}
+  _dirt: {fileID: 4778906879308964727, guid: 1a93c46888145644eaad14df6cea8baa, type: 3}
+  _coordOffset: 1
+  _iterations: 3
+  _spawnRate: 0.5
 --- !u!4 &1396296875
 Transform:
   m_ObjectHideFlags: 0
