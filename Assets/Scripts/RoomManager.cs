@@ -49,15 +49,15 @@ public class RoomManager : MonoBehaviour
                 {
                     _tempCoords.Add(x + Vector2.up);
                 }
-                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.down))
+                else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.down))
                 {
                     _tempCoords.Add(x + Vector2.down);
                 }
-                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.left))
+                else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.left))
                 {
                     _tempCoords.Add(x + Vector2.left);
                 }
-                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.right))
+                else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.right))
                 {
                     _tempCoords.Add(x + Vector2.right);
                 }
@@ -91,17 +91,9 @@ public class RoomManager : MonoBehaviour
             if (_gateIndex == 0)
             {
                 if (Random.value < 0.5f && CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.left))
-                {
-                    _tempCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.left);
-                    _roomCoords.Add(_tempCoords[0]);
-                    _tempCoords.Clear();
-                }
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.left);
                 else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.right))
-                {
-                    _tempCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.right);
-                    _roomCoords.Add(_tempCoords[0]);
-                    _tempCoords.Clear();
-                }
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.right);
             }
         }
         if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.up))
@@ -128,8 +120,8 @@ public class RoomManager : MonoBehaviour
             _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.down);
             CloseFirstArea(_roomCoords[_gateIndex] + Vector2.left);
         }
+        yield return null;
 
-        
         //Iterate second group
         while (_roomCoords.Count < (_roomCount * 2))
         {
@@ -139,15 +131,15 @@ public class RoomManager : MonoBehaviour
                 {
                     _tempCoords.Add(x + Vector2.up);
                 }
-                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.down))
+                else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.down))
                 {
                     _tempCoords.Add(x + Vector2.down);
                 }
-                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.left))
+                else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.left))
                 {
                     _tempCoords.Add(x + Vector2.left);
                 }
-                if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.right))
+                else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.right))
                 {
                     _tempCoords.Add(x + Vector2.right);
                 }
@@ -219,6 +211,7 @@ public class RoomManager : MonoBehaviour
                 roomObj.GetComponent<ChunkManager>().leftDoor.SetActive(false);
             if (!CheckRoomCoords(x + Vector2.right))
                 roomObj.GetComponent<ChunkManager>().rightDoor.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
         }
 
         StartCoroutine(AddDirt());
@@ -253,7 +246,7 @@ public class RoomManager : MonoBehaviour
                 if (CheckRoomCoords(new Vector2(x, y)))
                 {
                     GameObject dirtObj = Instantiate(_dirt);
-                    dirtObj.transform.position = new Vector2(x * _coordOffset, y * _coordOffset);
+                    dirtObj.transform.position = new Vector2(x, y) * _coordOffset;
                 }
             }
         }
