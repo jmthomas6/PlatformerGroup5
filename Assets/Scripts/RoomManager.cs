@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    private List<Vector2> _roomCoords, _blockedCoords, _tempCoords;
-    private List<GameObject> _rooms;
+    private List<Vector2> _roomCoords, _blockedCoords;
+    private Vector2 _tempCoords;
+    //private List<GameObject> _rooms;
     [SerializeField]
     private List<GameObject> _roomPrefabs;
     [SerializeField]
-    private GameObject _startRoom, _gateRoom, _dirt;
+    private GameObject _startRoom, _gateRoom, _endRoom, _dirt;
     [SerializeField]
     private float _coordOffset, _roomCount, _spawnRate;
     private int _gateIndex, _endIndex = 0;
@@ -18,8 +19,8 @@ public class RoomManager : MonoBehaviour
     {
         _roomCoords = new List<Vector2>();
         _blockedCoords = new List<Vector2>();
-        _tempCoords = new List<Vector2>();
-        _rooms = new List<GameObject>();
+        _tempCoords = Vector2.zero;
+        //_rooms = new List<GameObject>();
         StartCoroutine(DetermineLayout());
     }
 
@@ -47,26 +48,26 @@ public class RoomManager : MonoBehaviour
             {
                 if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.up))
                 {
-                    _tempCoords.Add(x + Vector2.up);
+                    _tempCoords = x + Vector2.up;
                 }
                 else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.down))
                 {
-                    _tempCoords.Add(x + Vector2.down);
+                    _tempCoords = x + Vector2.down ;
                 }
                 else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.left))
                 {
-                    _tempCoords.Add(x + Vector2.left);
+                    _tempCoords = x + Vector2.left;
                 }
                 else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.right))
                 {
-                    _tempCoords.Add(x + Vector2.right);
+                    _tempCoords = x + Vector2.right;
                 }
             }
-            foreach (Vector2 x in _tempCoords)
+            if (_tempCoords != Vector2.zero)
             {
-                _roomCoords.Add(x);
+                _roomCoords.Add(_tempCoords);
             }
-            _tempCoords.Clear();
+            _tempCoords = Vector2.zero;
         }
 
         // GATE ROOM
@@ -129,52 +130,55 @@ public class RoomManager : MonoBehaviour
             {
                 if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.up))
                 {
-                    _tempCoords.Add(x + Vector2.up);
+                    _tempCoords = x + Vector2.up;
                 }
                 else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.down))
                 {
-                    _tempCoords.Add(x + Vector2.down);
+                    _tempCoords = x + Vector2.down;
                 }
                 else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.left))
                 {
-                    _tempCoords.Add(x + Vector2.left);
+                    _tempCoords = x + Vector2.left;
                 }
                 else if (Random.value < _spawnRate && CheckEmptyCoords(x + Vector2.right))
                 {
-                    _tempCoords.Add(x + Vector2.right);
+                    _tempCoords = x + Vector2.right;
                 }
             }
-            foreach (Vector2 x in _tempCoords)
+            if (_tempCoords != Vector2.zero)
             {
-                _roomCoords.Add(x);
+                _roomCoords.Add(_tempCoords);
             }
-            _tempCoords.Clear();
+            _tempCoords = Vector2.zero;
         }
 
         // END ROOM
-        float roomDist = 0;
-        Vector2 furthestRoom;
-        foreach (Vector2 x in _roomCoords)
+        while (_endIndex == 0)
         {
-            if (Vector2.Distance(Vector2.zero, x) > roomDist)
+            for (int index = _roomCoords.Count - 1; index > _roomCount; index--)
             {
-                roomDist = Vector2.Distance(Vector2.zero, x);
-                furthestRoom = x;
+                int surroundingCount = 0;
+                if (CheckRoomCoords(_roomCoords[index] + Vector2.up) && CheckRoomCoords(_roomCoords[index] + Vector2.down))
+                {
+                    if (!CheckRoomCoords(_roomCoords[index] + Vector2.left))
+                        surroundingCount++;
+                    if (!CheckRoomCoords(_roomCoords[index] + Vector2.right))
+                        surroundingCount++;
+                    if (surroundingCount < 2)
+                    {
+                        _endIndex = index;
+                        break;
+                    }
+                }
+            }
+            if (_endIndex == 0)
+            {
+                if (Random.value < 0.5f && CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.left))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.left);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.right))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.right);
             }
         }
-        /*
-        if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.left))
-        {
-            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.up);
-            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.down);
-            CloseFirstArea(_roomCoords[_gateIndex] + Vector2.right);
-        }
-        else if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.right))
-        {
-            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.up);
-            _blockedCoords.Add(_roomCoords[_gateIndex] + Vector2.down);
-            CloseFirstArea(_roomCoords[_gateIndex] + Vector2.left);
-        }*/
 
         StartCoroutine(SpawnRooms());
         yield return null;
@@ -186,22 +190,18 @@ public class RoomManager : MonoBehaviour
         {
             GameObject roomObj;
             if (x == Vector2.zero)
-            {
                 roomObj = Instantiate(_startRoom);
-                roomObj.transform.position = x;
-            }
             else if (_roomCoords.IndexOf(x) == _gateIndex)
-            {
                 roomObj = Instantiate(_gateRoom);
-                roomObj.transform.position = x;
-            }
+            else if (_roomCoords.IndexOf(x) == _endIndex)
+                roomObj = Instantiate(_endRoom);
             else
             {
                 int roomIndex = Random.Range(0, _roomPrefabs.Count);
                 roomObj = Instantiate(_roomPrefabs[roomIndex]);
-                roomObj.transform.position = x * _coordOffset;
             }
-            _rooms.Add(roomObj); // Do I need this?
+            roomObj.transform.position = x * _coordOffset;
+            //_rooms.Add(roomObj);
 
             if (!CheckRoomCoords(x + Vector2.up))
                 roomObj.GetComponent<ChunkManager>().topDoor.SetActive(false);
@@ -211,7 +211,7 @@ public class RoomManager : MonoBehaviour
                 roomObj.GetComponent<ChunkManager>().leftDoor.SetActive(false);
             if (!CheckRoomCoords(x + Vector2.right))
                 roomObj.GetComponent<ChunkManager>().rightDoor.SetActive(false);
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
         }
 
         StartCoroutine(AddDirt());
@@ -265,10 +265,9 @@ public class RoomManager : MonoBehaviour
             if (x == y)
                 return false;
         }
-        foreach (Vector2 y in _tempCoords)
+        if (_tempCoords != Vector2.zero && x == _tempCoords)
         {
-            if (x == y)
-                return false;
+            return false;
         }
         return true;
     }
