@@ -9,7 +9,7 @@ public class ChunkManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> _dropPlatforms;
     //[SerializeField]
-    private float _playerHeightOffset = 1.24f;
+    private float _playerHeightOffset = 0.735f;
     private Transform _player;
 
     private void Start()

@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
         _rend.sprite = _climbFrames[2];
         _rend.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         _rend.transform.localPosition = new Vector3(0f, 0f, 0f);
-        prevPos += new Vector3(-(_parent.transform.localScale.x * 0.5f), (_baseScale * 0.75f), 0f);
+        prevPos += new Vector3(-(_parent.transform.localScale.x * 0.5f), (_baseScale * 0.9f), 0f);
         _parent.transform.position = prevPos;
         yield return new WaitForSeconds(_climbSpeed);
 
