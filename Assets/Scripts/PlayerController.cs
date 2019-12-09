@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private bool _grounded, _doubleJump, _inCombat, _freezeMovement;
     private float _attackTimer;
+    private float _baseScale;
 
     private void Start()
     {
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         _inCombat = false;
         _freezeMovement = false;
         _attackTimer = 0f;
+        _baseScale = _parent.transform.localScale.x;
     }
 
     private void Update()
@@ -64,6 +66,10 @@ public class PlayerController : MonoBehaviour
             {
                 newVelocity += Vector2.right * _acceleration;
                 Climb();
+            }
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            {
+                // NEEDED?
             }
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
             {
@@ -124,14 +130,14 @@ public class PlayerController : MonoBehaviour
         Vector2 vel = _rb.velocity;
         if (vel.x > 0)
         {
-            _parent.localScale = new Vector3(-1f, 1f, 1f);
+            _parent.localScale = new Vector3(-_baseScale, _baseScale, 1f);
         }
         else if (vel.x < 0)
         {
-            _parent.localScale = new Vector3(1f, 1f, 1f);
+            _parent.localScale = new Vector3(_baseScale, _baseScale, 1f);
         }
 
-        if (_grounded)
+        if (_grounded && Mathf.Abs(_rb.velocity.y) < 5)
         {
             if (Mathf.Abs(vel.x) > 0.05f)
             {
@@ -188,7 +194,7 @@ public class PlayerController : MonoBehaviour
         _rend.sprite = _climbFrames[2];
         _rend.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         _rend.transform.localPosition = new Vector3(0f, 0f, 0f);
-        prevPos += new Vector3(-(_parent.transform.localScale.x * 0.5f), 0.75f, 0f);
+        prevPos += new Vector3(-(_parent.transform.localScale.x * 0.5f), (_baseScale * 0.75f), 0f);
         _parent.transform.position = prevPos;
         yield return new WaitForSeconds(_climbSpeed);
 
