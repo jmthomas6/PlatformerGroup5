@@ -217,7 +217,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523669846994413823}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 4796255189979063606}
   m_Layer: 0
   m_Name: Top
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -478,7 +478,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3781854401512653299}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 5335418959702775577}
   m_Layer: 0
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4737,7 +4737,7 @@ GameObject:
   - component: {fileID: 5335418960007753533}
   m_Layer: 0
   m_Name: Tilemap (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5216,6 +5216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5335418960228582846}
   - component: {fileID: 5335418960228582847}
+  - component: {fileID: 4972671267034336212}
   m_Layer: 0
   m_Name: gateRoom
   m_TagString: Untagged
@@ -5259,6 +5260,23 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &4972671267034336212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335418960228582844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d707c0ee7aa87ac4888031daffc19ace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightDoor: {fileID: 5898342906880950707}
+  leftDoor: {fileID: 523669846994413823}
+  topDoor: {fileID: 3781854401512653299}
+  bottomDoor: {fileID: 8708149927974730782}
+  _dropPlatforms: []
 --- !u!1 &5335418960923585657
 GameObject:
   m_ObjectHideFlags: 0
@@ -6444,32 +6462,32 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 5335418961570109473}
     m_ColliderPaths:
-    - - X: -20000290
+    - - X: 39999971
         Y: -60000000
-      - X: -20000133
-        Y: 80000100
-      - X: -40000041
-        Y: 79999926
-      - X: -39999710
+      - X: 39999971
+        Y: 80000000
+      - X: 20000000
+        Y: 79999971
+      - X: 20000029
         Y: -60000000
-    - - X: 39999896
-        Y: -60000100
-      - X: 40000012
-        Y: 80000100
-      - X: 19999900
-        Y: 80000012
-      - X: 20000104
-        Y: -60000100
+    - - X: -20000029
+        Y: -60000000
+      - X: -20000029
+        Y: 80000000
+      - X: -40000000
+        Y: 79999971
+      - X: -39999971
+        Y: -60000000
   m_CompositePaths:
     m_Paths:
-    - - {x: -2.000013, y: 8.00001}
-      - {x: -4.000004, y: 7.999993}
-      - {x: -3.9999712, y: -6}
-      - {x: -2.000029, y: -6}
-    - - {x: 4.0000014, y: 8.00001}
-      - {x: 1.99999, y: 8.000002}
-      - {x: 2.0000105, y: -6.00001}
-      - {x: 3.9999897, y: -6.00001}
+    - - {x: 3.9999971, y: 8}
+      - {x: 2, y: 7.9999967}
+      - {x: 2.0000029, y: -6}
+      - {x: 3.9999971, y: -6}
+    - - {x: -2.0000029, y: 8}
+      - {x: -4, y: 7.9999967}
+      - {x: -3.9999971, y: -6}
+      - {x: -2.0000029, y: -6}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
 --- !u!1 &5898342906880950707
@@ -6689,7 +6707,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5898342906880950707}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -6754,7 +6772,7 @@ GameObject:
   - component: {fileID: 5176860836111609782}
   m_Layer: 0
   m_Name: Bottom
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7006,7 +7024,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8708149927974730782}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

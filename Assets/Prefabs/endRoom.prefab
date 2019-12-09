@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2423925229332103704}
   m_Layer: 0
   m_Name: Right
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 3552630593837979902}
   m_Layer: 0
   m_Name: Left
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5158,8 +5158,8 @@ MonoBehaviour:
   leftDoor: {fileID: 3512026268785227549}
   topDoor: {fileID: 4256572146016049099}
   bottomDoor: {fileID: 8037742882789487050}
-  _dropPlatforms: []
-  _playerHeightOffset: 0
+  _dropPlatforms:
+  - {fileID: 8224694098269975677}
 --- !u!1 &8224694098269975677
 GameObject:
   m_ObjectHideFlags: 0

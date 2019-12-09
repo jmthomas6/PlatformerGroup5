@@ -8,8 +8,8 @@ public class ChunkManager : MonoBehaviour
     public GameObject rightDoor, leftDoor, topDoor, bottomDoor;
     [SerializeField]
     private List<GameObject> _dropPlatforms;
-    [SerializeField]
-    private float _playerHeightOffset;
+    //[SerializeField]
+    private float _playerHeightOffset = 2.7f;
     private Transform _player;
 
     private void Start()
@@ -31,6 +31,7 @@ public class ChunkManager : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
+                print(_player.position.y + ", " + x.transform.position.y);
                 x.GetComponentInChildren<TilemapCollider2D>().enabled = false;
             }
         }
