@@ -11,6 +11,7 @@ TagManager:
   - GroundTrigger
   - Dirt
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX

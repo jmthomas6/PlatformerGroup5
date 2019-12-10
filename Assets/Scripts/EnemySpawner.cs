@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     EnemyPooler enemyPooler;
+    public int specialEnemyCountDown = 0;
 
     private void Start()
     {
@@ -13,6 +14,22 @@ public class EnemySpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        enemyPooler.SpawnFromPool("Enemy", transform.position, Quaternion.identity);
+        
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            enemyPooler.SpawnFromPool("Enemy", transform.position, Quaternion.identity);
+            specialEnemyCountDown++;
+            if (specialEnemyCountDown == 2)
+            {
+                enemyPooler.SpawnFromPool("Enemy2", transform.position, Quaternion.identity);
+                specialEnemyCountDown = 0;
+            }
+            
+        }
     }
 }

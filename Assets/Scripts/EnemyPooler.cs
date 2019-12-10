@@ -28,6 +28,9 @@ public class EnemyPooler : MonoBehaviour
 
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
+   // public int numEnemysActive = 0;
+   // public int numEnemys = 0;
+
     void Start()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
@@ -49,6 +52,7 @@ public class EnemyPooler : MonoBehaviour
     }
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
+
         if (!poolDictionary.ContainsKey(tag))
         {
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist");
@@ -57,19 +61,25 @@ public class EnemyPooler : MonoBehaviour
 
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation = rotation;
+            objectToSpawn.SetActive(true);
+         //   numEnemysActive++;
+            objectToSpawn.transform.position = position;
+            objectToSpawn.transform.rotation = rotation;
 
-        IPooledEnemy pooledEmy = objectToSpawn.GetComponent<IPooledEnemy>();
+            IPooledEnemy pooledEmy = objectToSpawn.GetComponent<IPooledEnemy>();
 
-        if (pooledEmy != null)
-        {
-            pooledEmy.OnObjectSpawn();
-        }
+            if (pooledEmy != null)
+            {
+                pooledEmy.OnObjectSpawn();
+            }
 
-        poolDictionary[tag].Enqueue(objectToSpawn);
+            poolDictionary[tag].Enqueue(objectToSpawn);
 
-        return objectToSpawn;
+            Debug.LogWarning("Spawn something");
+
+            return objectToSpawn;
+
+
+        
     }
 }
