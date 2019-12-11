@@ -7,18 +7,15 @@ public class KillCounter : MonoBehaviour
     public int numberOfKills;
     public int killsNeeded;
 
-    public GameObject attackedTrigger;
+    public GameObject gate;
 
-    EnemyPooler enemyPooler;
-    /*
-    private void Start()
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        enemyPooler = EnemyPooler.Instance;
+        if (numberOfKills >= killsNeeded)
+        {
+            gate.SetActive(false);
+        }
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        
-    } */
 }
