@@ -4135,7 +4135,7 @@ Transform:
   - {fileID: 640007686147968437}
   - {fileID: 8568089851217814372}
   - {fileID: 2354255008856305395}
-  - {fileID: 7799801349698194398}
+  - {fileID: 4632160734921282229}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6259,7 +6259,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!1001 &7949459876839059175
+--- !u!1001 &4766193816834619276
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -6274,12 +6274,12 @@ PrefabInstance:
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
@@ -6328,9 +6328,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91b9f990c6276f444974b7a0d47174ba, type: 3}
---- !u!4 &7799801349698194398 stripped
+--- !u!4 &4632160734921282229 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
     type: 3}
-  m_PrefabInstance: {fileID: 7949459876839059175}
+  m_PrefabInstance: {fileID: 4766193816834619276}
   m_PrefabAsset: {fileID: 0}
