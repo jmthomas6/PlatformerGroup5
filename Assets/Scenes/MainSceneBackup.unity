@@ -2057,7 +2057,7 @@ MonoBehaviour:
   - tag: Enemy2
     prefab: {fileID: 5644494111810433050, guid: 4b8be6f2aca985d488d54a05189b126a,
       type: 3}
-    size: 10
+    size: 5
 --- !u!4 &1984483274
 Transform:
   m_ObjectHideFlags: 0

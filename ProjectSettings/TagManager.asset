@@ -12,6 +12,7 @@ TagManager:
   - Dirt
   - Wall
   - Enemy
+  - Gate
   layers:
   - Default
   - TransparentFX
