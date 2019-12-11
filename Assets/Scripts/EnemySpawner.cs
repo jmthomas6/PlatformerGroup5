@@ -12,12 +12,6 @@ public class EnemySpawner : MonoBehaviour
         enemyPooler = EnemyPooler.Instance;
     }
 
-    private void FixedUpdate()
-    {
-        
-
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
