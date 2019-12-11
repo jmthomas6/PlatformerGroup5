@@ -22,10 +22,9 @@ public class EnemyController : MonoBehaviour
     private Vector2 _damageVel;
 
     private GroundCheck _gc;
-    [SerializeField]
     private bool _grounded, _inCombat, _freezeMovement;
     private float _attackTimer, _baseScale, _timeOutCombat;
-    private RaycastHit2D _ray;
+    private RaycastHit2D _playerCheck, _obstacleCheck;
     private int _layerMask;
 
     private void Start()
@@ -35,26 +34,27 @@ public class EnemyController : MonoBehaviour
         _inCombat = false;
         _freezeMovement = false;
         _attackTimer = 0f;
-        //_baseScale = _parent.localScale.x; // NEEDED?
+        _baseScale = _parent.localScale.x;
 
         _layerMask = ~(LayerMask.GetMask("Enemies"));
-        _ray = Physics2D.Raycast(transform.position, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange, _layerMask);
+        _playerCheck = Physics2D.Raycast(transform.position, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange, _layerMask);
         StartCoroutine(Patrol());
     }
 
     private void FixedUpdate()
     {
-        _ray = Physics2D.Raycast(transform.position, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange, _layerMask);
-        if (_ray.collider != null && _ray.collider.transform.tag == "Player")
+        _playerCheck = Physics2D.Raycast(transform.position, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange, _layerMask);
+        if (_playerCheck.collider != null && _playerCheck.collider.transform.tag == "Player")
         {
             _inCombat = true;
+            StartCoroutine(Pursue());
             _timeOutCombat = 0f;
         }
         else if (_timeOutCombat < _combatTimer)
         {
             _timeOutCombat += Time.deltaTime;
         }
-        else if (_timeOutCombat >= _combatTimer)
+        if (_timeOutCombat >= _combatTimer && _inCombat)
         {
             _inCombat = false;
             StartCoroutine(Patrol());
@@ -65,11 +65,11 @@ public class EnemyController : MonoBehaviour
     private void UpdateAnim()
     {
         Vector2 vel = _rb.velocity;
-        if (vel.x > 0)
+        if (vel.x > 0.05f)
         {
             _parent.localScale = new Vector3(-_baseScale, _baseScale, 1f);
         }
-        else if (vel.x < 0)
+        else if (vel.x < -0.05f)
         {
             _parent.localScale = new Vector3(_baseScale, _baseScale, 1f);
         }
@@ -99,6 +99,7 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
+            _rb.constraints = RigidbodyConstraints2D.FreezeAll;
             float waitTimer = Random.Range(_waitMin, _waitMax);
             float t = 0;
             while (t < waitTimer && !_inCombat)
@@ -110,8 +111,52 @@ public class EnemyController : MonoBehaviour
             {
                 break;
             }
+
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             _parent.localScale = new Vector3(-_parent.localScale.x, _parent.localScale.y, 1f);
+            yield return null;
+            
+            while (true)
+            {
+                Vector2 newVelocity = _rb.velocity;
+                newVelocity += Vector2.left * _acceleration * Mathf.Sign(_parent.localScale.x);
+                if (newVelocity.x > _speed)
+                {
+                    newVelocity.x = _speed;
+                }
+                if (newVelocity.x < -_speed)
+                {
+                    newVelocity.x = -_speed;
+                }
+                if (newVelocity.x < _slowLimit && newVelocity.x > -_slowLimit)
+                {
+                    newVelocity.x = 0;
+                }
+                _rb.velocity = newVelocity;
+                yield return null;
+
+                _obstacleCheck = Physics2D.Raycast(transform.position, Vector2.left * Mathf.Sign(_parent.localScale.x), _attackRange, _layerMask);
+                yield return new WaitForEndOfFrame();
+                if (!_ledgeChecker.grounded || _obstacleCheck.collider != null || _inCombat)
+                {
+                    _rb.velocity = Vector2.zero;
+                    break;
+                }
+            }
+            
+            
         }
+        yield return null;
+    }
+
+    private IEnumerator Pursue()
+    {
+        _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        while (_inCombat)
+        {
+            yield return null;
+        }
+        _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return null;
     }
 }
