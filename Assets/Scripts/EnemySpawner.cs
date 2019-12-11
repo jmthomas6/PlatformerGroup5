@@ -7,6 +7,9 @@ public class EnemySpawner : MonoBehaviour
     EnemyPooler enemyPooler;
     public int specialEnemyCountDown = 0;
 
+    public int numberSpawnedEnemy1 = 0;
+    public int numberSpawnedEnemy2 = 0;
+
     private void Start()
     {
         enemyPooler = EnemyPooler.Instance;
@@ -14,14 +17,23 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        
         if (other.CompareTag("Player"))
         {
-            enemyPooler.SpawnFromPool("Enemy", transform.position, Quaternion.identity);
-            specialEnemyCountDown++;
-            if (specialEnemyCountDown == 2)
+            if (numberSpawnedEnemy1 <= 2)
             {
-                enemyPooler.SpawnFromPool("Enemy2", transform.position, Quaternion.identity);
-                specialEnemyCountDown = 0;
+                enemyPooler.SpawnFromPool("Enemy", transform.position, Quaternion.identity);
+                numberSpawnedEnemy1++;
+            }
+            specialEnemyCountDown++;
+            if (specialEnemyCountDown == 5)
+            {
+                if(numberSpawnedEnemy2 < 1)
+                {
+                    enemyPooler.SpawnFromPool("Enemy2", transform.position, Quaternion.identity);
+                    numberSpawnedEnemy2++;
+                }
+                
             }
             
         }

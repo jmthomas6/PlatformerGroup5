@@ -1470,11 +1470,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5519056553236157952, guid: 2025f3894f752a14f8601fa34b7602c5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.56
-      objectReference: {fileID: 0}
     - target: {fileID: 5519056553236158207, guid: 2025f3894f752a14f8601fa34b7602c5,
         type: 3}
       propertyPath: m_Enabled
@@ -1484,6 +1479,11 @@ PrefabInstance:
         type: 3}
       propertyPath: orthographic size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519056553236157952, guid: 2025f3894f752a14f8601fa34b7602c5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.56
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2025f3894f752a14f8601fa34b7602c5, type: 3}
@@ -3947,6 +3947,7 @@ MonoBehaviour:
   endText: {fileID: 60001576}
   causeText: {fileID: 2070108523}
   gateText: {fileID: 1195298509}
+  gameStarted: 0
   isPaused: 0
 --- !u!1 &1984483272
 GameObject:
@@ -3981,11 +3982,11 @@ MonoBehaviour:
   - tag: Enemy
     prefab: {fileID: 5519056552638291341, guid: 513211ce601929740944935ad9097330,
       type: 3}
-    size: 10
+    size: 32
   - tag: Enemy2
     prefab: {fileID: 5644494111810433050, guid: 4b8be6f2aca985d488d54a05189b126a,
       type: 3}
-    size: 5
+    size: 7
 --- !u!4 &1984483274
 Transform:
   m_ObjectHideFlags: 0
