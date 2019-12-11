@@ -1413,7 +1413,7 @@ PrefabInstance:
     - target: {fileID: 5519056552638291345, guid: 2025f3894f752a14f8601fa34b7602c5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 5519056552638291345, guid: 2025f3894f752a14f8601fa34b7602c5,
         type: 3}
@@ -3978,7 +3978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pools:
   - tag: Enemy
-    prefab: {fileID: 5644494111810433050, guid: e3595286ded07404bb22b88635c49686,
+    prefab: {fileID: 5519056552638291341, guid: 513211ce601929740944935ad9097330,
       type: 3}
     size: 10
   - tag: Enemy2
