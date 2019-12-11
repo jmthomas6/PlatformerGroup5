@@ -27,7 +27,7 @@ public class UIController : MonoBehaviour
         infoPanel.SetActive(false);
         pausePanel.SetActive(false);
         playPanel.SetActive(false);
-        endPanel.SetActive(false);
+      //  endPanel.SetActive(false);
         gateText.gameObject.SetActive(false);
     }
 
@@ -103,5 +103,10 @@ public class UIController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void GameOver()
+    {
+        endPanel.SetActive(true);
     }
 }

@@ -14,6 +14,7 @@ TagManager:
   - Enemy
   - Gate
   - UIController
+  - EndPanel
   layers:
   - Default
   - TransparentFX
