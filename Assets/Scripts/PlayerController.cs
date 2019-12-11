@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     //private Collider2D _col;
 
     [SerializeField]
-    private float _acceleration, _speed, _slowLimit, _jumpVelocity, _attackCooldown, _climbSpeed;
+    private float _acceleration, _speed, _slowLimit, _jumpVelocity, _attackCooldown, _climbSpeed, _climbHeight;
     [SerializeField]
     private Animator _anim;
     [SerializeField]
@@ -26,11 +26,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector2 _damageVel;
 
-    [SerializeField]
     private bool _grounded, _doubleJump, _inCombat, _freezeMovement;
     private float _attackTimer;
     private float _baseScale;
-    [SerializeField]
     private UIController _gc;
 
     private void Start()
@@ -203,7 +201,7 @@ public class PlayerController : MonoBehaviour
         _rend.sprite = _climbFrames[2];
         _rend.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         _rend.transform.localPosition = new Vector3(0f, 0f, 0f);
-        prevPos += new Vector3(-(_parent.transform.localScale.x * 0.5f), (_baseScale * 0.9f), 0f);
+        prevPos += new Vector3(-(_parent.transform.localScale.x * 0.5f), _climbHeight, 0f);
         _parent.transform.position = prevPos;
         yield return new WaitForSeconds(_climbSpeed);
 
