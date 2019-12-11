@@ -73,23 +73,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parent: {fileID: 5519056552638291345}
-  _acceleration: 10
-  _speed: 15
-  _slowLimit: 10
+  _acceleration: 6
+  _speed: 10
+  _slowLimit: 6
   _attackCooldown: 1
-  _attackRange: 2
-  _combatRange: 10
+  _attackRange: 1
+  _combatRange: 5
   _waitMin: 1
   _waitMax: 3
+  _combatTimer: 3
   _anim: {fileID: 5519056552688128188}
   _ledgeChecker: {fileID: 2649221354839833369}
   _rb: {fileID: 5519056552638291342}
   _attackObj: {fileID: 4247160167286209809}
   _rend: {fileID: 5519056552688128187}
   _damageVel: {x: 5, y: 5}
-  _grounded: 0
-  _inCombat: 0
-  _freezeMovement: 0
 --- !u!114 &1236392885376746915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,7 +438,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7924459198155089666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 0.3, z: 0}
+  m_LocalPosition: {x: -0.337, y: -0.583, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5519056552638291345}
@@ -459,7 +457,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
