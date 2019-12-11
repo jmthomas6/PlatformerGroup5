@@ -5,14 +5,18 @@ using UnityEngine;
 public class ExitDungeon : MonoBehaviour
 {
     UIController uIController;
-    public GameObject endGame;
+    public GameObject endPanel;
 
+    private void Start()
+    {
+        endPanel = GameObject.FindGameObjectWithTag("UIController");
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-           endGame.SetActive(true);
+            uIController.GameOver();
         }
     }
 
