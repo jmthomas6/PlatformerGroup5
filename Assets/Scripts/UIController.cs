@@ -104,4 +104,9 @@ public class UIController : MonoBehaviour
             }
         }
     }
+
+    public void GameOver()
+    {
+        endPanel.SetActive(true);
+    }
 }

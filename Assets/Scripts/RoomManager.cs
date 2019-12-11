@@ -95,6 +95,18 @@ public class RoomManager : MonoBehaviour
                     _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.left);
                 else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.right))
                     _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.right);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.up))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.up);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.down))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.down);
+                else if (Random.value < 0.5f && CheckEmptyCoords(_roomCoords[_roomCoords.Count - 2] + Vector2.left))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 2] + Vector2.left);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 2] + Vector2.right))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 2] + Vector2.right);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 2] + Vector2.up))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 2] + Vector2.up);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 2] + Vector2.down))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 2] + Vector2.down);
             }
         }
         if (!CheckRoomCoords(_roomCoords[_gateIndex] + Vector2.up))
@@ -177,6 +189,18 @@ public class RoomManager : MonoBehaviour
                     _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.left);
                 else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.right))
                     _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.right);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.up))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.up);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 1] + Vector2.down))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 1] + Vector2.down);
+                else if (Random.value < 0.5f && CheckEmptyCoords(_roomCoords[_roomCoords.Count - 2] + Vector2.left))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 2] + Vector2.left);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 2] + Vector2.right))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 2] + Vector2.right);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 2] + Vector2.up))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 2] + Vector2.up);
+                else if (CheckEmptyCoords(_roomCoords[_roomCoords.Count - 2] + Vector2.down))
+                    _roomCoords.Add(_roomCoords[_roomCoords.Count - 2] + Vector2.down);
             }
         }
 
