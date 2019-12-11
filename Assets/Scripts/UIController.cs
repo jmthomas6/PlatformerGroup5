@@ -19,7 +19,7 @@ public class UIController : MonoBehaviour
     public Text gateText; //Appears when the gate has opened
 
     private bool gameStarted = false; //Used to determine when game can be paused
-    private bool isPaused = false; //Shows if the game is paused or not
+    public bool isPaused = false; //Shows if the game is paused or not
 
     void Start()
     {

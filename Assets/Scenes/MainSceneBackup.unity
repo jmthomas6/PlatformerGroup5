@@ -1470,6 +1470,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5519056553236157952, guid: 2025f3894f752a14f8601fa34b7602c5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.56
+      objectReference: {fileID: 0}
     - target: {fileID: 5519056553236158207, guid: 2025f3894f752a14f8601fa34b7602c5,
         type: 3}
       propertyPath: m_Enabled
@@ -1479,11 +1484,6 @@ PrefabInstance:
         type: 3}
       propertyPath: orthographic size
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5519056553236157952, guid: 2025f3894f752a14f8601fa34b7602c5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.56
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2025f3894f752a14f8601fa34b7602c5, type: 3}
@@ -3908,7 +3908,7 @@ GameObject:
   - component: {fileID: 1971682823}
   m_Layer: 0
   m_Name: UIController
-  m_TagString: Untagged
+  m_TagString: UIController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3947,6 +3947,7 @@ MonoBehaviour:
   endText: {fileID: 60001576}
   causeText: {fileID: 2070108523}
   gateText: {fileID: 1195298509}
+  isPaused: 0
 --- !u!1 &1984483272
 GameObject:
   m_ObjectHideFlags: 0

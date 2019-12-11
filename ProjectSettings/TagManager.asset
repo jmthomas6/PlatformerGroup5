@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - Enemy
   - Gate
+  - UIController
   layers:
   - Default
   - TransparentFX

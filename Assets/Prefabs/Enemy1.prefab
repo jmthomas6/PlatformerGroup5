@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 2919800021364603690}
   - component: {fileID: 2463231124136025324}
   - component: {fileID: 2649221354839833369}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: LedgeChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}

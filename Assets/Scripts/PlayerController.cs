@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private GroundCheck _gc;
+    private GroundCheck _triggerCheck;
     //private Collider2D _col;
 
     [SerializeField]
@@ -26,13 +26,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector2 _damageVel;
 
+    [SerializeField]
     private bool _grounded, _doubleJump, _inCombat, _freezeMovement;
     private float _attackTimer;
     private float _baseScale;
+    [SerializeField]
+    private UIController _gc;
 
     private void Start()
     {
-        _gc = GetComponent<GroundCheck>();
+        _triggerCheck = GetComponent<GroundCheck>();
+        _gc = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
         _grounded = true;
         _doubleJump = false;
         _inCombat = false;
@@ -43,78 +47,81 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _attackTimer += Time.deltaTime;
-        if (!_freezeMovement)
+        if (!_gc.isPaused)
         {
+            _attackTimer += Time.deltaTime;
+            if (!_freezeMovement)
+            {
 
-            if (_gc.grounded)
-            {
-                _grounded = true;
-                _doubleJump = true;
-            }
-            else
-            {
-                _grounded = false;
-            }
-
-            _anim.SetBool("Grounded", _grounded);
-            Vector2 newVelocity = _rb.velocity;
-            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-            {
-                newVelocity += Vector2.left * _acceleration;
-                Climb();
-            }
-            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-            {
-                newVelocity += Vector2.right * _acceleration;
-                Climb();
-            }
-            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-            {
-                // NEEDED?
-            }
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
-            {
-                if (_grounded)
+                if (_triggerCheck.grounded)
                 {
-                    newVelocity += Vector2.up * _jumpVelocity;
+                    _grounded = true;
+                    _doubleJump = true;
+                }
+                else
+                {
                     _grounded = false;
-                    _anim.SetTrigger("Jump");
                 }
-                else if (_doubleJump)
+
+                _anim.SetBool("Grounded", _grounded);
+                Vector2 newVelocity = _rb.velocity;
+                if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                 {
-                    newVelocity += Vector2.up * _jumpVelocity;
-                    _doubleJump = false;
-                    _anim.SetTrigger("Jump");
+                    newVelocity += Vector2.left * _acceleration;
+                    Climb();
                 }
-            }
+                if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+                {
+                    newVelocity += Vector2.right * _acceleration;
+                    Climb();
+                }
+                if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+                {
+                    // NEEDED?
+                }
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
+                {
+                    if (_grounded)
+                    {
+                        newVelocity += Vector2.up * _jumpVelocity;
+                        _grounded = false;
+                        _anim.SetTrigger("Jump");
+                    }
+                    else if (_doubleJump)
+                    {
+                        newVelocity += Vector2.up * _jumpVelocity;
+                        _doubleJump = false;
+                        _anim.SetTrigger("Jump");
+                    }
+                }
 
-            if (newVelocity.x > _speed)
-            {
-                newVelocity.x = _speed;
-            }
-            if (newVelocity.x < -_speed)
-            {
-                newVelocity.x = -_speed;
-            }
-            if (newVelocity.x < _slowLimit && newVelocity.x > -_slowLimit)
-            {
-                newVelocity.x = 0;
-            }
-            _rb.velocity = newVelocity;
+                if (newVelocity.x > _speed)
+                {
+                    newVelocity.x = _speed;
+                }
+                if (newVelocity.x < -_speed)
+                {
+                    newVelocity.x = -_speed;
+                }
+                if (newVelocity.x < _slowLimit && newVelocity.x > -_slowLimit)
+                {
+                    newVelocity.x = 0;
+                }
+                _rb.velocity = newVelocity;
 
-            if (Input.GetKeyDown(KeyCode.X) && _attackTimer > _attackCooldown && _grounded)
-            {
-                StartCoroutine(Attack());
-                _attackTimer = 0f;
-            }
+                if (Input.GetKeyDown(KeyCode.X) && _attackTimer > _attackCooldown && _grounded)
+                {
+                    StartCoroutine(Attack());
+                    _attackTimer = 0f;
+                }
 
-            UpdateAnim();
+                UpdateAnim();
 
-            //REMOVE LATER, REPLACE WITH DIST CHECK
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                _inCombat = !_inCombat;
+                //REMOVE LATER, REPLACE WITH DIST CHECK
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    _inCombat = !_inCombat;
+                }
             }
         }
     }
