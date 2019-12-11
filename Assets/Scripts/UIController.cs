@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour
     public Text causeText; //Shows what caused the game to end
     public Text gateText; //Appears when the gate has opened
 
-    private bool gameStarted = false; //Used to determine when game can be paused
+    public bool gameStarted = false; //Used to determine when game can be paused
     public bool isPaused = false; //Shows if the game is paused or not
 
     void Start()
@@ -68,6 +68,7 @@ public class UIController : MonoBehaviour
 
     public void OnReplayClick() //Affects the replayButton and the restartButton
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         print("Game Restarted");
     }

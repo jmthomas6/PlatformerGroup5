@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         if (!_gc.isPaused)
         {
             _attackTimer += Time.deltaTime;
-            if (!_freezeMovement)
+            if (!_freezeMovement && _gc.gameStarted)
             {
 
                 if (_triggerCheck.grounded)
