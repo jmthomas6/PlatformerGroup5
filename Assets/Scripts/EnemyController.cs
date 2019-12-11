@@ -158,7 +158,7 @@ public class EnemyController : MonoBehaviour
                 yield return null;
                 
                 yield return new WaitForEndOfFrame();
-                if (!_ledgeChecker.grounded || _obstacleCheck.collider != null || _inCombat)
+                if (!LedgeCheck() || _obstacleCheck.collider != null || _inCombat)
                 {
                     _rb.velocity = Vector2.zero;
                     break;
@@ -201,7 +201,7 @@ public class EnemyController : MonoBehaviour
                     yield return new WaitForSeconds(_attackCooldown);
                 }
                 _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-                if (!_ledgeChecker.grounded || (_obstacleCheck.collider != null && _obstacleCheck.collider.transform.tag != "Player"))
+                if (!LedgeCheck() || (_obstacleCheck.collider != null && _obstacleCheck.collider.transform.tag != "Player"))
                 {
                     _rb.velocity = Vector2.zero;
                     _parent.localScale = new Vector3(-_parent.localScale.x, _parent.localScale.y, 1f);
@@ -262,12 +262,15 @@ public class EnemyController : MonoBehaviour
         _pursuing = StartCoroutine(Pursue());
         yield return null;
     }
-    /*
+    
     private bool LedgeCheck()
     {
         Vector3 endPos = _ledgeCheckOffset;
         endPos.x *= Mathf.Sign(_parent.localScale.x);
+        print(transform.position + ", " + (transform.position + endPos));
         RaycastHit2D ledgeRay = Physics2D.Linecast(transform.position, transform.position + endPos, _layerMask);
-        if ()
-    }*/
+        if (ledgeRay.collider != null && ledgeRay.collider.transform.tag == "Ground")
+            return true;
+        return false;
+    }
 }
