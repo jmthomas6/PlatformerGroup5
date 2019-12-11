@@ -88,6 +88,7 @@ MonoBehaviour:
   _attackObj: {fileID: 4247160167286209809}
   _rend: {fileID: 5519056552688128187}
   _damageVel: {x: 5, y: 5}
+  _ledgeCheckOffset: {x: -1, y: -1}
 --- !u!114 &1236392885376746915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +107,7 @@ MonoBehaviour:
   _jumpVelocity: 50
   _attackCooldown: 0.25
   _climbSpeed: 0.1
+  _climbHeight: 0
   _anim: {fileID: 5519056552688128188}
   _climbTiggerBottom: {fileID: 0}
   _climbTriggerTop: {fileID: 2649221354839833369}
@@ -438,7 +440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7924459198155089666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.337, y: -0.583, z: 0}
+  m_LocalPosition: {x: -0.4, y: -0.6, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5519056552638291345}
