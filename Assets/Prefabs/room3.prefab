@@ -926,7 +926,7 @@ Transform:
   - {fileID: 675231254657867727}
   - {fileID: 8620823586412804226}
   - {fileID: 7291106034708951255}
-  - {fileID: 1681113142972598519}
+  - {fileID: 8951722755406714568}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7558,7 +7558,7 @@ CompositeCollider2D:
       - {x: -3.0000029, y: 7.3125}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
---- !u!1001 &1529203917680192974
+--- !u!1001 &9103667972930909169
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -7573,12 +7573,12 @@ PrefabInstance:
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
@@ -7627,9 +7627,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91b9f990c6276f444974b7a0d47174ba, type: 3}
---- !u!4 &1681113142972598519 stripped
+--- !u!4 &8951722755406714568 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
     type: 3}
-  m_PrefabInstance: {fileID: 1529203917680192974}
+  m_PrefabInstance: {fileID: 9103667972930909169}
   m_PrefabAsset: {fileID: 0}

@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _rend;
     [SerializeField]
     private List<Sprite> _climbFrames;
+    [SerializeField]
+    private Vector2 _damageVel;
 
     private bool _grounded, _doubleJump, _inCombat, _freezeMovement;
     private float _attackTimer;
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
         _inCombat = false;
         _freezeMovement = false;
         _attackTimer = 0f;
-        _baseScale = _parent.transform.localScale.x;
+        _baseScale = _parent.localScale.x;
     }
 
     private void Update()
@@ -101,7 +103,7 @@ public class PlayerController : MonoBehaviour
             }
             _rb.velocity = newVelocity;
 
-            if (Input.GetKeyDown(KeyCode.X) && _attackTimer > _attackCooldown)
+            if (Input.GetKeyDown(KeyCode.X) && _attackTimer > _attackCooldown && _grounded)
             {
                 StartCoroutine(Attack());
                 _attackTimer = 0f;

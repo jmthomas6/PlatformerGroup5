@@ -5630,6 +5630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5335418961570109476}
+  - component: {fileID: 4851063116925508757}
   - component: {fileID: 5335418961570109475}
   - component: {fileID: 5335418961570109472}
   - component: {fileID: 5335418961570109473}
@@ -5657,6 +5658,21 @@ Transform:
   m_Father: {fileID: 5335418960228582846}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4851063116925508757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335418961570109477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0daf52fdea64442906ab70fac3e5af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfKills: 0
+  killsNeeded: 10
+  gate: {fileID: 5335418961570109477}
 --- !u!1839735485 &5335418961570109475
 Tilemap:
   m_ObjectHideFlags: 0

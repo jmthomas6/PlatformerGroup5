@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1684219262779570641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1571892424061629468}
+  - component: {fileID: 3892684132739226929}
+  m_Layer: 9
+  m_Name: Kill Counter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1571892424061629468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684219262779570641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5519056552638291345}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3892684132739226929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684219262779570641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0daf52fdea64442906ab70fac3e5af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfKills: 0
+  killsNeeded: 10
+  attackedTrigger: {fileID: 4247160167286209809}
 --- !u!1 &3410182472727043049
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +58,7 @@ GameObject:
   - component: {fileID: 6179220753236288764}
   - component: {fileID: 1236392885376746915}
   - component: {fileID: 3800273188290012788}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MovementObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,6 +136,7 @@ MonoBehaviour:
   - {fileID: 21300052, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   - {fileID: 21300054, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   - {fileID: 21300062, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
+  _damageVel: {x: 0, y: 0}
 --- !u!114 &3800273188290012788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +161,7 @@ GameObject:
   - component: {fileID: 5461097794547585842}
   - component: {fileID: 3669684677674603900}
   - component: {fileID: 3622789005138940476}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +258,7 @@ GameObject:
   - component: {fileID: 5519056552638291345}
   - component: {fileID: 5519056552638291343}
   - component: {fileID: 5519056552638291342}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -235,6 +282,7 @@ Transform:
   - {fileID: 2919800021364603690}
   - {fileID: 5519056552823320844}
   - {fileID: 5461097794547585842}
+  - {fileID: 1571892424061629468}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,7 +344,7 @@ GameObject:
   - component: {fileID: 5519056552688128186}
   - component: {fileID: 5519056552688128188}
   - component: {fileID: 5519056552688128187}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +444,7 @@ GameObject:
   - component: {fileID: 5519056552823320845}
   - component: {fileID: 7822313874784618676}
   - component: {fileID: 1263942166986696934}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ClimbTriggerBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +564,7 @@ GameObject:
   - component: {fileID: 5519056553236157952}
   - component: {fileID: 5519056553236158207}
   - component: {fileID: 5519056553236158205}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -599,7 +647,7 @@ GameObject:
   - component: {fileID: 2919800021364603690}
   - component: {fileID: 2463231124136025324}
   - component: {fileID: 2649221354839833369}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ClimbTriggerTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
