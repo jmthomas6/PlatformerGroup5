@@ -54,6 +54,11 @@ public class EnemyController : MonoBehaviour
         {
             _timeOutCombat += Time.deltaTime;
         }
+        else if (_timeOutCombat >= _combatTimer)
+        {
+            _inCombat = false;
+            StartCoroutine(Patrol());
+        }
         UpdateAnim();
     }
 
