@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _rend;
     [SerializeField]
-    private Vector2 _damageVel;
+    private Vector2 _damageVel, _ledgeCheckOffset;
 
     private GroundCheck _gc;
     private bool _grounded, _inCombat, _freezeMovement;
@@ -262,4 +262,12 @@ public class EnemyController : MonoBehaviour
         _pursuing = StartCoroutine(Pursue());
         yield return null;
     }
+    /*
+    private bool LedgeCheck()
+    {
+        Vector3 endPos = _ledgeCheckOffset;
+        endPos.x *= Mathf.Sign(_parent.localScale.x);
+        RaycastHit2D ledgeRay = Physics2D.Linecast(transform.position, transform.position + endPos, _layerMask);
+        if ()
+    }*/
 }
