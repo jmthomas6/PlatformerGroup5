@@ -88,6 +88,8 @@ MonoBehaviour:
   _attackObj: {fileID: 4247160167286209809}
   _rend: {fileID: 5519056552688128187}
   _damageVel: {x: 5, y: 5}
+  _obstacleCheckOffset: {x: 0, y: 0, z: 0}
+  _ledgeCheckOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1236392885376746915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +108,7 @@ MonoBehaviour:
   _jumpVelocity: 50
   _attackCooldown: 0.25
   _climbSpeed: 0.1
+  _climbHeight: 0
   _anim: {fileID: 5519056552688128188}
   _climbTiggerBottom: {fileID: 0}
   _climbTriggerTop: {fileID: 2649221354839833369}
@@ -120,11 +123,6 @@ MonoBehaviour:
   - {fileID: 21300054, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   - {fileID: 21300062, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   _damageVel: {x: 0, y: 0}
-  _grounded: 0
-  _doubleJump: 0
-  _inCombat: 0
-  _freezeMovement: 0
-  _gc: {fileID: 0}
 --- !u!114 &3800273188290012788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4247160167286209809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0.125, z: 0}
+  m_LocalPosition: {x: -0.3, y: 0.125, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 5519056552638291345}

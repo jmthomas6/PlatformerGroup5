@@ -76,8 +76,7 @@ MonoBehaviour:
   _acceleration: 6
   _speed: 10
   _slowLimit: 6
-  _attackCooldown: 1
-  _attackRange: 1
+  _attackRange: 0.5
   _combatRange: 5
   _waitMin: 1
   _waitMax: 3
@@ -88,7 +87,9 @@ MonoBehaviour:
   _attackObj: {fileID: 4247160167286209809}
   _rend: {fileID: 5519056552688128187}
   _damageVel: {x: 5, y: 5}
-  _ledgeCheckOffset: {x: -1, y: -1}
+  _attackCooldownMM: {x: 1, y: 3}
+  _obstacleCheckOffset: {x: -0.4, y: 0, z: 0}
+  _ledgeCheckOffset: {x: -1, y: -1, z: 0}
 --- !u!114 &1236392885376746915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4247160167286209809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0.125, z: 0}
+  m_LocalPosition: {x: -0.3, y: 0.125, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 5519056552638291345}
@@ -431,7 +432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2919800021364603690
 Transform:
   m_ObjectHideFlags: 0

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfKills: 0
   killsNeeded: 10
-  attackedTrigger: {fileID: 4247160167286209809}
+  gate: {fileID: 0}
 --- !u!1 &3410182472727043049
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   _jumpVelocity: 50
   _attackCooldown: 0.25
   _climbSpeed: 0.1
+  _climbHeight: 1.1
   _anim: {fileID: 5519056552688128188}
   _climbTiggerBottom: {fileID: 1263942166986696934}
   _climbTriggerTop: {fileID: 2649221354839833369}

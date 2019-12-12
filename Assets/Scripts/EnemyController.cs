@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private Transform _parent;
     [SerializeField]
-    private float _acceleration, _speed, _slowLimit, _attackCooldown, _attackRange, _combatRange, _waitMin, _waitMax, _combatTimer;
+    private float _acceleration, _speed, _slowLimit, _attackRange, _combatRange, _waitMin, _waitMax, _combatTimer;
     [SerializeField]
     private Animator _anim;
     [SerializeField]
@@ -19,11 +19,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _rend;
     [SerializeField]
-    private Vector2 _damageVel, _ledgeCheckOffset;
+    private Vector2 _damageVel, _attackCooldownMM;
+    [SerializeField]
+    private Vector3 _obstacleCheckOffset, _ledgeCheckOffset;
 
     private GroundCheck _gc;
     private bool _grounded, _inCombat, _freezeMovement;
-    private float _attackTimer, _baseScale, _timeOutCombat;
+    private float _attackTimer, _baseScale, _timeOutCombat, _attackCooldown;
     private RaycastHit2D _playerCheck, _obstacleCheck;
     private int _layerMask;
     private Coroutine _patrolling, _pursuing;
@@ -36,17 +38,22 @@ public class EnemyController : MonoBehaviour
         _freezeMovement = false;
         _attackTimer = 0f;
         _baseScale = _parent.localScale.x;
+        _attackCooldown = Random.Range(_attackCooldownMM.x, _attackCooldownMM.y);
 
         _layerMask = ~(LayerMask.GetMask("Enemies"));
-        _playerCheck = Physics2D.Raycast(transform.position, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange, _layerMask);
+        Vector3 startPos = _obstacleCheckOffset;
+        startPos.x *= Mathf.Sign(_parent.localScale.x);
+        _playerCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange);
         _patrolling = StartCoroutine(Patrol());
     }
 
     private void FixedUpdate()
     {
         _attackTimer += Time.deltaTime;
-        _playerCheck = Physics2D.Raycast(transform.position, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange, _layerMask);
-        _obstacleCheck = Physics2D.Raycast(transform.position, Vector2.left * Mathf.Sign(_parent.localScale.x), _attackRange, _layerMask);
+        Vector3 startPos = _obstacleCheckOffset;
+        startPos.x *= Mathf.Sign(_parent.localScale.x);
+        _playerCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange);
+        _obstacleCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _attackRange);
         if (_playerCheck.collider != null && _playerCheck.collider.transform.tag == "Player" && !_inCombat)
         {
             _inCombat = true;
@@ -267,7 +274,6 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 endPos = _ledgeCheckOffset;
         endPos.x *= Mathf.Sign(_parent.localScale.x);
-        print(transform.position + ", " + (transform.position + endPos));
         RaycastHit2D ledgeRay = Physics2D.Linecast(transform.position, transform.position + endPos, _layerMask);
         if (ledgeRay.collider != null && ledgeRay.collider.transform.tag == "Ground")
             return true;
