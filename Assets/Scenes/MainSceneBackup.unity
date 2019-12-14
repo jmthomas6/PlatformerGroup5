@@ -3833,11 +3833,11 @@ MonoBehaviour:
   gameStarted: 0
   isPaused: 0
   hearts:
-  - {fileID: 161154456}
-  - {fileID: 302721813}
-  - {fileID: 1290765643}
-  - {fileID: 1017423750}
   - {fileID: 174038161}
+  - {fileID: 1017423750}
+  - {fileID: 1290765643}
+  - {fileID: 302721813}
+  - {fileID: 161154456}
 --- !u!1 &1984483272
 GameObject:
   m_ObjectHideFlags: 0
