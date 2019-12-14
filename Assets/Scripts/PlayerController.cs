@@ -186,7 +186,8 @@ public class PlayerController : MonoBehaviour
 
         _attackWindow = false;
         _freezeMovement = false;
-        _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if (!_dead)
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return null;
     }
 
@@ -223,7 +224,8 @@ public class PlayerController : MonoBehaviour
         _rend.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         _rend.transform.localPosition = new Vector3(0f, 0f, 0f);
         _freezeMovement = false;
-        _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if (!_dead)
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         _anim.enabled = true;
         yield return null;
     }
