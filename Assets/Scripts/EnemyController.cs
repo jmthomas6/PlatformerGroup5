@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
     private int _health;
 
     private GroundCheck _gc;
+    private KillCounter _kc;
     private bool _grounded, _inCombat, _freezeMovement, _attackWindow, _dead;
     private float _attackTimer, _baseScale, _timeOutCombat, _attackCooldown;
     private RaycastHit2D _playerCheck, _obstacleCheck;
@@ -33,6 +34,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         _gc = GetComponent<GroundCheck>();
+        _kc = FindObjectOfType<KillCounter>();
         _grounded = true;
         _inCombat = false;
         _freezeMovement = false;
@@ -287,7 +289,7 @@ public class EnemyController : MonoBehaviour
             _parent.transform.GetComponent<Collider2D>().enabled = false;
             _anim.SetTrigger("Recover");
             _dead = true;
-            // ADD 1 to KILL COUNT
+            _kc.NumberOfKills++;
         }
     }
 

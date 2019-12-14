@@ -4,18 +4,33 @@ using UnityEngine;
 
 public class KillCounter : MonoBehaviour
 {
-    public int numberOfKills;
-    public int killsNeeded;
+    private int _numberOfKills;
+    private UIController _gc;
 
-    public GameObject gate;
+    [SerializeField]
+    private int killsNeeded;
+    [SerializeField]
+    private GameObject gate;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    public int NumberOfKills
     {
-        if (numberOfKills >= killsNeeded)
+        get
         {
-            gate.SetActive(false);
+            return _numberOfKills;
+        }
+        set
+        {
+            _numberOfKills = value;
+            if (_numberOfKills >= killsNeeded)
+            {
+                gate.SetActive(false);
+                // _gc.GateText();
+            }
         }
     }
 
-
+    private void Start()
+    {
+        _gc = FindObjectOfType<UIController>();
+    }
 }

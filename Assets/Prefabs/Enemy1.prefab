@@ -89,7 +89,7 @@ MonoBehaviour:
   _attackCooldownMM: {x: 2, y: 5}
   _obstacleCheckOffset: {x: -0.4, y: 0, z: 0}
   _ledgeCheckOffset: {x: -1, y: -1, z: 0}
-  _health: 5
+  _health: 2
 --- !u!114 &3800273188290012788
 MonoBehaviour:
   m_ObjectHideFlags: 0
