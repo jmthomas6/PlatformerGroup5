@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class ExitDungeon : MonoBehaviour
 {
-    UIController uIController;
+    private UIController _gc;
     public GameObject endPanel;
 
     private void Start()
     {
-        endPanel = GameObject.FindGameObjectWithTag("UIController");
+        _gc = FindObjectOfType<UIController>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            uIController.GameOver();
-            uIController.VictoryMessage();
+            other.transform.GetComponentInChildren<PlayerController>().dead = true;
+            other.transform.GetComponent<Collider2D>().enabled = false;
+            other.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+            _gc.GameOver();
+            _gc.VictoryMessage();
         }
     }
-
 }

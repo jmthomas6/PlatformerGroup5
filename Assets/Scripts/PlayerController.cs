@@ -28,11 +28,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int _health;
 
-    private bool _grounded, _doubleJump, _inCombat, _freezeMovement, _attackWindow, _dead;
+    private bool _grounded, _doubleJump, _inCombat, _freezeMovement, _attackWindow;
     private float _attackTimer;
     private float _baseScale;
     private UIController _gc;
     private Coroutine _attackAnim;
+
+    public bool dead;
 
     private void Start()
     {
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!_gc.isPaused && !_dead)
+        if (!_gc.isPaused && !dead)
         {
             _attackTimer += Time.deltaTime;
             if (!_freezeMovement && _gc.gameStarted)
@@ -186,7 +188,7 @@ public class PlayerController : MonoBehaviour
 
         _attackWindow = false;
         _freezeMovement = false;
-        if (!_dead)
+        if (!dead)
             _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return null;
     }
@@ -224,7 +226,7 @@ public class PlayerController : MonoBehaviour
         _rend.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         _rend.transform.localPosition = new Vector3(0f, 0f, 0f);
         _freezeMovement = false;
-        if (!_dead)
+        if (!dead)
             _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         _anim.enabled = true;
         yield return null;
@@ -245,15 +247,16 @@ public class PlayerController : MonoBehaviour
             Vector2 vel = _rb.velocity;
             vel += flinchDirection;
             _rb.velocity = vel;
-            _dead = false;
+            dead = false;
         }
         else if (_health == 0)
         {
             _rb.constraints = RigidbodyConstraints2D.FreezeAll;
             _parent.transform.GetComponent<Collider2D>().enabled = false;
             _anim.SetTrigger("Recover");
-            _dead = true;
+            dead = true;
             _gc.GameOver();
+            _gc.DefeatMessage();
         }
     }
 }

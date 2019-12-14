@@ -39,7 +39,6 @@ public class UIController : MonoBehaviour
     void Update()
     {
         OnEscPress();
-
     }
 
     public void OnStartClick() //Affects the startButton
