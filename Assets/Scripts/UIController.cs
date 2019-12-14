@@ -109,6 +109,11 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void ShowGateText()
+    {
+        gateText.gameObject.SetActive(true);
+    }
+
     public void GameOver() //Brings up the endPanel when a game ending condition is met
     {
         endPanel.SetActive(true);
