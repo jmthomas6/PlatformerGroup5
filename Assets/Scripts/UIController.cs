@@ -23,7 +23,7 @@ public class UIController : MonoBehaviour
     public bool isPaused = false; //Shows if the game is paused or not
 
     [Header("Hearts")]
-    public GameObject[] hearts;
+    public List<GameObject> hearts;
 
     void Start()
     {
@@ -126,32 +126,14 @@ public class UIController : MonoBehaviour
         causeText.text = "You Were Killed";
     }
 
-    public void LoseHeart() //Affects the order in which the heart sprites are disabled
+    public void LoseHeart(int health) //Affects the order in which the heart sprites are disabled
     {
-        if (hearts[0] == true && hearts[1] == true && hearts[2] == true && hearts[3] == true && hearts[4] == true)
+        foreach (GameObject x in hearts)
         {
-            hearts[0].SetActive(false);
-            print("First Heart Lost");
-        }
-        else if (hearts[0] == false && hearts[1] == true && hearts[2] == true && hearts[3] == true && hearts[4] == true)
-        {
-            hearts[1].SetActive(false);
-            print("Second Heart Lost");
-        }
-        else if (hearts[0] == false && hearts[1] == false && hearts[2] == true && hearts[3] == true && hearts[4] == true)
-        {
-            hearts[2].SetActive(false);
-            print("Third Heart Lost");
-        }
-        else if (hearts[0] == false && hearts[1] == false && hearts[2] == false && hearts[3] == true && hearts[4] == true)
-        {
-            hearts[3].SetActive(false);
-            print("Fourth Heart Lost");
-        }
-        else if (hearts[0] == false && hearts[1] == false && hearts[2] == false && hearts[3] == false && hearts[4] == true)
-        {
-            hearts[4].SetActive(false);
-            print("Fifth Heart Lost");
+            if (health == hearts.IndexOf(x))
+            {
+                x.SetActive(false);
+            }
         }
     }
 }

@@ -238,6 +238,7 @@ public class PlayerController : MonoBehaviour
         }
 
         _health--;
+        _gc.LoseHeart(_health);
         if (_health > 0)
         {
             _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -245,7 +246,6 @@ public class PlayerController : MonoBehaviour
             vel += flinchDirection;
             _rb.velocity = vel;
             _dead = false;
-            // UPDATE UI
         }
         else if (_health == 0)
         {
@@ -253,7 +253,7 @@ public class PlayerController : MonoBehaviour
             _parent.transform.GetComponent<Collider2D>().enabled = false;
             _anim.SetTrigger("Recover");
             _dead = true;
-            // GAME OVER
+            _gc.GameOver();
         }
     }
 }
