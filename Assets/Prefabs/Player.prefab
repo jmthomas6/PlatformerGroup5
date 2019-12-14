@@ -536,7 +536,7 @@ MonoBehaviour:
   tagCheck: 
   _includeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!1 &5519056553236158204
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,4 +695,4 @@ MonoBehaviour:
   tagCheck: 
   _includeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024

@@ -8,8 +8,8 @@ public class ChunkManager : MonoBehaviour
     public GameObject rightDoor, leftDoor, topDoor, bottomDoor;
     [SerializeField]
     private List<GameObject> _dropPlatforms;
-    //[SerializeField]
-    private float _playerHeightOffset = 0.735f;
+
+    private float _playerHeightOffset = 0.74f;
     private Transform _player;
 
     private void Start()
@@ -19,24 +19,19 @@ public class ChunkManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (_dropPlatforms != null && _dropPlatforms.Count > 0)
+        foreach (GameObject x in _dropPlatforms)
         {
-            //print(_dropPlatforms.Count);
-            foreach (GameObject x in _dropPlatforms)
+            if (_player.position.y - _playerHeightOffset > x.transform.position.y)
             {
-                if (_player.position.y - _playerHeightOffset > x.transform.position.y)
-                {
-                    x.GetComponentInChildren<TilemapCollider2D>().enabled = true;
-                }
-                else
-                {
-                    x.GetComponentInChildren<TilemapCollider2D>().enabled = false;
-                }
-                if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-                {
-                    //print(_player.position.y + ", " + x.transform.position.y);
-                    x.GetComponentInChildren<TilemapCollider2D>().enabled = false;
-                }
+                x.GetComponentInChildren<TilemapCollider2D>().enabled = true;
+            }
+            else
+            {
+                x.GetComponentInChildren<TilemapCollider2D>().enabled = false;
+            }
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            {
+                x.GetComponentInChildren<TilemapCollider2D>().enabled = false;
             }
         }
     }

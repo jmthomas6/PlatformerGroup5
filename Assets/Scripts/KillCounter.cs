@@ -24,7 +24,7 @@ public class KillCounter : MonoBehaviour
             if (_numberOfKills >= killsNeeded)
             {
                 gate.SetActive(false);
-                // _gc.GateText();
+                _gc.ShowGateText();
             }
         }
     }
