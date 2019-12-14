@@ -504,7 +504,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Victory!
+  m_Text: Error
 --- !u!222 &60001577
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1305,7 +1305,19 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: How to play the game goes here
+  m_Text: 'Your goal is to kill enough enemies to open the gate. Once the gate is
+    open, you can make your way home.
+
+
+    Controls
+
+    X - Attack
+
+    SpaceBar - Jump
+
+    WASD/ArrowKeys - Move
+
+    S/DownArrow - Drop Through Platform'
 --- !u!222 &346249405
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3820,6 +3832,12 @@ MonoBehaviour:
   gateText: {fileID: 1195298509}
   gameStarted: 0
   isPaused: 0
+  hearts:
+  - {fileID: 161154456}
+  - {fileID: 302721813}
+  - {fileID: 1290765643}
+  - {fileID: 1017423750}
+  - {fileID: 174038161}
 --- !u!1 &1984483272
 GameObject:
   m_ObjectHideFlags: 0
@@ -3972,7 +3990,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You Made It Home!
+  m_Text: Error
 --- !u!222 &2070108524
 CanvasRenderer:
   m_ObjectHideFlags: 0

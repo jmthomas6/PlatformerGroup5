@@ -17,6 +17,7 @@ public class ExitDungeon : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             uIController.GameOver();
+            uIController.VictoryMessage();
         }
     }
 

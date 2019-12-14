@@ -18,8 +18,12 @@ public class UIController : MonoBehaviour
     public Text causeText; //Shows what caused the game to end
     public Text gateText; //Appears when the gate has opened
 
+    [Header("Bools")]
     public bool gameStarted = false; //Used to determine when game can be paused
     public bool isPaused = false; //Shows if the game is paused or not
+
+    [Header("Hearts")]
+    public GameObject[] hearts;
 
     void Start()
     {
@@ -105,8 +109,49 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void GameOver()
+    public void GameOver() //Brings up the endPanel when a game ending condition is met
     {
         endPanel.SetActive(true);
+    }
+
+    public void VictoryMessage() //Affects endText and causeText to tell the player they won
+    {
+        endText.text = "Victory!";
+        causeText.text = "You Made It Home!";
+    }
+
+    public void DefeatMessage() //Affects endText and causeText to tell the player they lost
+    {
+        endText.text = "Defeat";
+        causeText.text = "You Were Killed";
+    }
+
+    public void LoseHeart() //Affects the order in which the heart sprites are disabled
+    {
+        if (hearts[0] == true && hearts[1] == true && hearts[2] == true && hearts[3] == true && hearts[4] == true)
+        {
+            hearts[0].SetActive(false);
+            print("First Heart Lost");
+        }
+        else if (hearts[0] == false && hearts[1] == true && hearts[2] == true && hearts[3] == true && hearts[4] == true)
+        {
+            hearts[1].SetActive(false);
+            print("Second Heart Lost");
+        }
+        else if (hearts[0] == false && hearts[1] == false && hearts[2] == true && hearts[3] == true && hearts[4] == true)
+        {
+            hearts[2].SetActive(false);
+            print("Third Heart Lost");
+        }
+        else if (hearts[0] == false && hearts[1] == false && hearts[2] == false && hearts[3] == true && hearts[4] == true)
+        {
+            hearts[3].SetActive(false);
+            print("Fourth Heart Lost");
+        }
+        else if (hearts[0] == false && hearts[1] == false && hearts[2] == false && hearts[3] == false && hearts[4] == true)
+        {
+            hearts[4].SetActive(false);
+            print("Fifth Heart Lost");
+        }
     }
 }
