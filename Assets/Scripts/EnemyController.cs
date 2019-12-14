@@ -4,32 +4,43 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    #region Variables
+    [Header("Objects")]
     [SerializeField]
     private Transform _parent;
-    [SerializeField]
-    private float _acceleration, _speed, _slowLimit, _attackRange, _combatRange, _waitMin, _waitMax, _combatTimer;
-    [SerializeField]
-    private Animator _anim;
-    [SerializeField]
-    private GroundCheck _ledgeChecker, _attackObj;
     [SerializeField]
     private Rigidbody2D _rb;
     [SerializeField]
     private SpriteRenderer _rend;
     [SerializeField]
-    private Vector2 _damageVel, _attackCooldownMM;
+    private Animator _anim;
     [SerializeField]
-    private Vector3 _obstacleCheckOffset, _ledgeCheckOffset;
+    private GroundCheck _attackObj;
+
+    [Header("Movement")]
+    [SerializeField]
+    private Vector3 _obstacleCheckOffset;
+    [SerializeField]
+    private Vector3 _ledgeCheckOffset;
+    [SerializeField]
+    private float _acceleration, _speed, _slowLimit, _combatRange, _waitMin, _waitMax, _combatTimer;
+
+    [Header("Combat")]
     [SerializeField]
     private int _health;
+    [SerializeField]
+    private Vector2 _damageVel, _attackCooldownMM;
+    [SerializeField]
+    private float _attackRange;
 
-    private GroundCheck _gc;
-    private KillCounter _kc;
+    private int _layerMask;
     private bool _grounded, _inCombat, _freezeMovement, _attackWindow, _dead;
     private float _attackTimer, _baseScale, _timeOutCombat, _attackCooldown;
+    private GroundCheck _gc;
+    private KillCounter _kc;
     private RaycastHit2D _playerCheck, _obstacleCheck;
-    private int _layerMask;
     private Coroutine _patrolling, _pursuing, _startled, _attackAnim;
+    #endregion
 
     private void Start()
     {
@@ -58,13 +69,13 @@ public class EnemyController : MonoBehaviour
             startPos.x *= Mathf.Sign(_parent.localScale.x);
             _playerCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange);
             _obstacleCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _attackRange);
+
             if (_playerCheck.collider != null && _playerCheck.collider.transform.tag == "Player" && !_inCombat)
             {
                 _inCombat = true;
                 if (_pursuing != null)
-                {
                     StopCoroutine(_pursuing);
-                }
+
                 _pursuing = StartCoroutine(Pursue());
                 _timeOutCombat = 0f;
             }
@@ -72,20 +83,16 @@ public class EnemyController : MonoBehaviour
             {
                 _timeOutCombat += Time.deltaTime;
             }
+
             if (_timeOutCombat >= _combatTimer && _inCombat)
             {
                 _inCombat = false;
                 if (_patrolling != null)
-                {
                     StopCoroutine(_patrolling);
-                }
+
                 _patrolling = StartCoroutine(Patrol());
             }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) // REMOVE AFTER TESTING
-            {
-                //Damage(new Vector2(25f, 25f));
-            }
             UpdateAnim();
 
             if (_attackWindow && _attackObj.grounded)
@@ -100,31 +107,24 @@ public class EnemyController : MonoBehaviour
     {
         Vector2 vel = _rb.velocity;
         if (vel.x > _slowLimit + 1)
-        {
             _parent.localScale = new Vector3(-_baseScale, _baseScale, 1f);
-        }
         else if (vel.x < -(_slowLimit + 1))
-        {
             _parent.localScale = new Vector3(_baseScale, _baseScale, 1f);
-        }
-        
+
         if (_gc.grounded && Mathf.Abs(_rb.velocity.y) < 5)
         {
             _anim.SetBool("Grounded", true);
             if (Mathf.Abs(vel.x) > _slowLimit)
             {
                 _anim.SetInteger("AnimState", 2);
-                //print("state 2");
             }
             else if (_inCombat)
             {
                 _anim.SetInteger("AnimState", 1);
-                //print("state 1");
             }
             else
             {
                 _anim.SetInteger("AnimState", 0);
-                //print("state 0");
             }
         }
         else
@@ -133,9 +133,9 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    #region AI States
     private IEnumerator Patrol()
     {
-        //print("patrolling!");
         while (true)
         {
             if (!_dead)
@@ -150,10 +150,9 @@ public class EnemyController : MonoBehaviour
             }
             if (!_dead)
                 _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
             if (_inCombat)
-            {
                 break;
-            }
             
             _parent.localScale = new Vector3(-_parent.localScale.x, _parent.localScale.y, 1f);
             yield return null;
@@ -163,17 +162,14 @@ public class EnemyController : MonoBehaviour
                 Vector2 newVelocity = _rb.velocity;
                 newVelocity += Vector2.left * _acceleration * Mathf.Sign(_parent.localScale.x);
                 if (newVelocity.x > _speed)
-                {
                     newVelocity.x = _speed;
-                }
+
                 if (newVelocity.x < -_speed)
-                {
                     newVelocity.x = -_speed;
-                }
+
                 if (newVelocity.x < _slowLimit && newVelocity.x > -_slowLimit)
-                {
                     newVelocity.x = 0;
-                }
+
                 _rb.velocity = newVelocity;
                 yield return null;
                 
@@ -190,25 +186,21 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator Pursue()
     {
-        //print("pursuing!");
         while (_inCombat)
         {
-            while (true) // Run
+            while (true)
             {
                 Vector2 newVelocity = _rb.velocity;
                 newVelocity += Vector2.left * _acceleration * Mathf.Sign(_parent.localScale.x);
                 if (newVelocity.x > _speed)
-                {
                     newVelocity.x = _speed;
-                }
+
                 if (newVelocity.x < -_speed)
-                {
                     newVelocity.x = -_speed;
-                }
+
                 if (newVelocity.x < _slowLimit && newVelocity.x > -_slowLimit)
-                {
                     newVelocity.x = 0;
-                }
+
                 _rb.velocity = newVelocity;
                 yield return null;
                 
@@ -218,11 +210,14 @@ public class EnemyController : MonoBehaviour
                     _rb.velocity = Vector2.zero;
                     if (!_dead)
                         _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
                     _attackAnim = StartCoroutine(AttackAnim());
                     yield return new WaitForSeconds(_attackCooldown);
                 }
+
                 if (!_dead)
                     _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
                 if ((!LedgeCheck() && _gc.grounded) || (_obstacleCheck.collider != null && _obstacleCheck.collider.transform.tag != "Player"))
                 {
                     _rb.velocity = Vector2.zero;
@@ -232,10 +227,26 @@ public class EnemyController : MonoBehaviour
             }
             yield return null;
         }
+
         if (!_dead)
             _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         yield return null;
     }
+
+    private IEnumerator Startled()
+    {
+        yield return new WaitForSeconds(0.25f);
+        _inCombat = true;
+        _timeOutCombat = 0f;
+
+        if (_pursuing != null)
+            StopCoroutine(_pursuing);
+
+        _pursuing = StartCoroutine(Pursue());
+        yield return null;
+    }
+    #endregion
 
     private IEnumerator AttackAnim()
     {
@@ -257,21 +268,16 @@ public class EnemyController : MonoBehaviour
     public void Damage(Vector2 flinchDirection)
     {
         if (_patrolling != null)
-        {
             StopCoroutine(_patrolling);
-        }
+
         if (_pursuing != null)
-        {
             StopCoroutine(_pursuing);
-        }
+
         if (_startled != null)
-        {
             StopCoroutine(_startled);
-        }
+
         if (_attackAnim != null)
-        {
             StopCoroutine(_attackAnim);
-        }
 
         _health--;
         if (_health > 0)
@@ -292,23 +298,6 @@ public class EnemyController : MonoBehaviour
             _kc.NumberOfKills++;
         }
     }
-
-    private IEnumerator Startled()
-    {
-        yield return new WaitForSeconds(0.25f);
-        //while (!_gc.grounded)
-        {
-            yield return null;
-        }
-        _inCombat = true;
-        _timeOutCombat = 0f;
-        if (_pursuing != null)
-        {
-            StopCoroutine(_pursuing);
-        }
-        _pursuing = StartCoroutine(Pursue());
-        yield return null;
-    }
     
     private bool LedgeCheck()
     {
@@ -317,6 +306,7 @@ public class EnemyController : MonoBehaviour
         RaycastHit2D ledgeRay = Physics2D.Linecast(transform.position, transform.position + endPos, _layerMask);
         if (ledgeRay.collider != null && ledgeRay.collider.transform.tag == "Ground")
             return true;
+
         return false;
     }
 }

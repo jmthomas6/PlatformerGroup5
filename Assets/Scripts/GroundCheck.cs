@@ -6,43 +6,31 @@ public class GroundCheck : MonoBehaviour
 {
     public bool grounded = false;
     public Transform col;
-    [SerializeField]
-    private string tagCheck;
+    
     [SerializeField]
     private LayerMask _includeLayers;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (((1 << collision.gameObject.layer) & _includeLayers) != 0)
+        if (((1 << col.gameObject.layer) & _includeLayers) != 0)
         {
-            //if (collision.CompareTag(tagCheck))
-            {
-                grounded = true;
-                col = collision.transform;
-            }
+            grounded = true;
+            this.col = col.transform;
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D col)
     {
-        if (((1 << collision.gameObject.layer) & _includeLayers) != 0)
+        if (((1 << col.gameObject.layer) & _includeLayers) != 0)
         {
-            //if (collision.CompareTag(tagCheck))
-            {
-                grounded = true;
-                col = collision.transform;
-            }
+            grounded = true;
+            this.col = col.transform;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D col)
     {
-        if (((1 << collision.gameObject.layer) & _includeLayers) != 0)
-        {
-            //if (collision.CompareTag(tagCheck))
-            {
-                grounded = false;
-            }
-        }
+        if (((1 << col.gameObject.layer) & _includeLayers) != 0)
+            grounded = false;
     }
 }

@@ -5146,6 +5146,7 @@ Transform:
   - {fileID: 6070885844664089806}
   - {fileID: 6312670734641823835}
   - {fileID: 5435186228858526044}
+  - {fileID: 2393307210631489338}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5390,6 +5391,36 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1 &3432722624453850731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2393307210631489338}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2393307210631489338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3432722624453850731}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5, y: -5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2960299789272213222}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4695206550592769775
 GameObject:
   m_ObjectHideFlags: 0
@@ -7602,12 +7633,12 @@ PrefabInstance:
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 174604247364134201, guid: 91b9f990c6276f444974b7a0d47174ba,
         type: 3}
@@ -7654,6 +7685,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 174604247364134200, guid: 91b9f990c6276f444974b7a0d47174ba,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 2393307210631489338}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91b9f990c6276f444974b7a0d47174ba, type: 3}
 --- !u!4 &5435186228858526044 stripped

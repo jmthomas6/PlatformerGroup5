@@ -12,13 +12,13 @@ public class ExitDungeon : MonoBehaviour
         _gc = FindObjectOfType<UIController>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (other.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
-            other.transform.GetComponentInChildren<PlayerController>().dead = true;
-            other.transform.GetComponent<Collider2D>().enabled = false;
-            other.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+            col.transform.GetComponentInChildren<PlayerController>().dead = true;
+            col.transform.GetComponent<Collider2D>().enabled = false;
+            col.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
             _gc.GameOver();
             _gc.VictoryMessage();
         }

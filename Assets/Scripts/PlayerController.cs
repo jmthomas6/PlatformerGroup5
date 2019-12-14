@@ -4,37 +4,53 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private GroundCheck _triggerCheck;
-    //private Collider2D _col;
-
+    #region Variables
+    [Header("Objects")]
     [SerializeField]
-    private float _acceleration, _speed, _slowLimit, _jumpVelocity, _attackCooldown, _climbSpeed, _climbHeight;
+    private Transform _parent;
+    [SerializeField]
+    private Rigidbody2D _rb;
+    [SerializeField]
+    private SpriteRenderer _rend;
     [SerializeField]
     private Animator _anim;
     [SerializeField]
     private GroundCheck _climbTiggerBottom, _climbTriggerTop, _attackObj;
+
+    [Header("Movement")]
     [SerializeField]
-    private Rigidbody2D _rb;
+    private float _acceleration;
     [SerializeField]
-    private Transform _parent;
-    //[SerializeField]
-    //private GameObject _attackObj;
+    private float _speed;
     [SerializeField]
-    private SpriteRenderer _rend;
+    private float _slowLimit;
+    [SerializeField]
+    private float _jumpVelocity;
+    [SerializeField]
+    private float _climbSpeed;
+    [SerializeField]
+    private float _climbHeight;
     [SerializeField]
     private List<Sprite> _climbFrames;
+
+    [Header("Combat")]
     [SerializeField]
     private Vector2 _damageVel;
     [SerializeField]
     private int _health;
+    [SerializeField]
+    private float _attackCooldown;
 
-    private bool _grounded, _doubleJump, _inCombat, _freezeMovement, _attackWindow;
+    private bool _grounded, _doubleJump, _invulnerable, _freezeMovement, _attackWindow;
     private float _attackTimer;
     private float _baseScale;
     private UIController _gc;
+    private GroundCheck _triggerCheck;
     private Coroutine _attackAnim;
 
+    [HideInInspector]
     public bool dead;
+    #endregion
 
     private void Start()
     {
@@ -42,7 +58,7 @@ public class PlayerController : MonoBehaviour
         _gc = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
         _grounded = true;
         _doubleJump = false;
-        _inCombat = false;
+        _invulnerable = false;
         _freezeMovement = false;
         _attackTimer = 0f;
         _baseScale = _parent.localScale.x;
@@ -68,20 +84,21 @@ public class PlayerController : MonoBehaviour
 
                 _anim.SetBool("Grounded", _grounded);
                 Vector2 newVelocity = _rb.velocity;
+
                 if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                 {
                     newVelocity += Vector2.left * _acceleration;
-                    Climb();
+                    if (_rb.velocity.y < 0 && _climbTiggerBottom.grounded && !_climbTriggerTop.grounded)
+                        StartCoroutine("ClimbAnimation");
                 }
+
                 if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
                 {
                     newVelocity += Vector2.right * _acceleration;
-                    Climb();
+                    if (_rb.velocity.y < 0 && _climbTiggerBottom.grounded && !_climbTriggerTop.grounded)
+                        StartCoroutine("ClimbAnimation");
                 }
-                if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-                {
-                    // NEEDED?
-                }
+
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
                 {
                     if (_grounded)
@@ -99,17 +116,14 @@ public class PlayerController : MonoBehaviour
                 }
 
                 if (newVelocity.x > _speed)
-                {
                     newVelocity.x = _speed;
-                }
+
                 if (newVelocity.x < -_speed)
-                {
                     newVelocity.x = -_speed;
-                }
+
                 if (newVelocity.x < _slowLimit && newVelocity.x > -_slowLimit)
-                {
                     newVelocity.x = 0;
-                }
+
                 _rb.velocity = newVelocity;
 
                 if (Input.GetKeyDown(KeyCode.X) && _attackTimer > _attackCooldown && _grounded)
@@ -120,11 +134,9 @@ public class PlayerController : MonoBehaviour
 
                 UpdateAnim();
 
-                //REMOVE LATER, REPLACE WITH DIST CHECK
+                // CHEAT CODE
                 if (Input.GetKeyDown(KeyCode.C))
-                {
-                    _inCombat = !_inCombat;
-                }
+                    _invulnerable = !_invulnerable;
             }
 
             if (_attackWindow && _attackObj.grounded)
@@ -135,40 +147,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Climb()
-    {
-        if (_rb.velocity.y < 0 && _climbTiggerBottom.grounded && !_climbTriggerTop.grounded)
-        {
-            StartCoroutine("ClimbAnimation");
-        }
-    }
-
     private void UpdateAnim()
     {
         Vector2 vel = _rb.velocity;
         if (vel.x > 0)
-        {
             _parent.localScale = new Vector3(-_baseScale, _baseScale, 1f);
-        }
         else if (vel.x < 0)
-        {
             _parent.localScale = new Vector3(_baseScale, _baseScale, 1f);
-        }
 
         if (_grounded && Mathf.Abs(_rb.velocity.y) < 5)
         {
             if (Mathf.Abs(vel.x) > 0.05f)
-            {
                 _anim.SetInteger("AnimState", 2);
-            }
-            else if (_inCombat)
-            {
+            else if (_invulnerable)
                 _anim.SetInteger("AnimState", 1);
-            }
             else
-            {
                 _anim.SetInteger("AnimState", 0);
-            }
         }
         else
         {
@@ -188,8 +182,10 @@ public class PlayerController : MonoBehaviour
 
         _attackWindow = false;
         _freezeMovement = false;
+
         if (!dead)
             _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         yield return null;
     }
 
@@ -228,35 +224,35 @@ public class PlayerController : MonoBehaviour
         _freezeMovement = false;
         if (!dead)
             _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         _anim.enabled = true;
         yield return null;
     }
 
     public void Damage(Vector2 flinchDirection)
     {
-        if (_attackAnim != null)
+        if (!_invulnerable)
         {
-            //StopCoroutine(_attackAnim);
-        }
+            _health--;
+            _gc.LoseHeart(_health);
 
-        _health--;
-        _gc.LoseHeart(_health);
-        if (_health > 0)
-        {
-            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            Vector2 vel = _rb.velocity;
-            vel += flinchDirection;
-            _rb.velocity = vel;
-            dead = false;
-        }
-        else if (_health == 0)
-        {
-            _rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            _parent.transform.GetComponent<Collider2D>().enabled = false;
-            _anim.SetTrigger("Recover");
-            dead = true;
-            _gc.GameOver();
-            _gc.DefeatMessage();
+            if (_health > 0)
+            {
+                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                Vector2 vel = _rb.velocity;
+                vel += flinchDirection;
+                _rb.velocity = vel;
+                dead = false;
+            }
+            else if (_health == 0)
+            {
+                _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                _parent.transform.GetComponent<Collider2D>().enabled = false;
+                _anim.SetTrigger("Recover");
+                dead = true;
+                _gc.GameOver();
+                _gc.DefeatMessage();
+            }
         }
     }
 }

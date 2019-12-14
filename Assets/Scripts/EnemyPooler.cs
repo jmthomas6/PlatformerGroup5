@@ -14,22 +14,15 @@ public class EnemyPooler : MonoBehaviour
     }
 
     #region Singleton
-
     public static EnemyPooler Instance;
-
     private void Awake()
     {
         Instance = this;
     }
-
     #endregion
 
     public List<Pool> pools;
-
     public Dictionary<string, Queue<GameObject>> poolDictionary;
-
-   // public int numEnemysActive = 0;
-   // public int numEnemys = 0;
 
     void Start()
     {
@@ -48,11 +41,10 @@ public class EnemyPooler : MonoBehaviour
 
             poolDictionary.Add(pool.tag, objectPool);
         }
-       
     }
+
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
-
         if (!poolDictionary.ContainsKey(tag))
         {
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist");
@@ -61,25 +53,16 @@ public class EnemyPooler : MonoBehaviour
 
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-            objectToSpawn.SetActive(true);
-         //   numEnemysActive++;
-            objectToSpawn.transform.position = position;
-            objectToSpawn.transform.rotation = rotation;
+        objectToSpawn.SetActive(true);
+        objectToSpawn.transform.position = position;
+        objectToSpawn.transform.rotation = rotation;
 
-            IPooledEnemy pooledEmy = objectToSpawn.GetComponent<IPooledEnemy>();
+        IPooledEnemy pooledEmy = objectToSpawn.GetComponent<IPooledEnemy>();
 
-            if (pooledEmy != null)
-            {
-                pooledEmy.OnObjectSpawn();
-            }
+        if (pooledEmy != null)
+            pooledEmy.OnObjectSpawn();
 
-            poolDictionary[tag].Enqueue(objectToSpawn);
-
-            Debug.LogWarning("Spawn something");
-
-            return objectToSpawn;
-
-
-        
+        poolDictionary[tag].Enqueue(objectToSpawn);
+        return objectToSpawn;
     }
 }

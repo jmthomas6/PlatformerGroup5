@@ -35,7 +35,6 @@ public class UIController : MonoBehaviour
         gateText.gameObject.SetActive(false);
     }
 
-
     void Update()
     {
         OnEscPress();
@@ -116,6 +115,7 @@ public class UIController : MonoBehaviour
     public void GameOver() //Brings up the endPanel when a game ending condition is met
     {
         endPanel.SetActive(true);
+        gateText.gameObject.SetActive(false);
     }
 
     public void VictoryMessage() //Affects endText and causeText to tell the player they won
@@ -135,9 +135,7 @@ public class UIController : MonoBehaviour
         foreach (GameObject x in hearts)
         {
             if (health == hearts.IndexOf(x))
-            {
                 x.SetActive(false);
-            }
         }
     }
 }

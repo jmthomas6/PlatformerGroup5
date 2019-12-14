@@ -4,38 +4,39 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    EnemyPooler enemyPooler;
-    public int specialEnemyCountDown = 0;
+    [SerializeField]
+    private Transform spawnPoint;
 
-    public int numberSpawnedEnemy1 = 0;
-    public int numberSpawnedEnemy2 = 0;
+    private EnemyPooler enemyPooler;
+
+    private int specialEnemyCountDown = 0;
+    private int numberSpawnedEnemy1 = 0;
+    private int numberSpawnedEnemy2 = 0;
 
     private void Start()
     {
         enemyPooler = EnemyPooler.Instance;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        
-        if (other.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
             if (numberSpawnedEnemy1 <= 2)
             {
-                enemyPooler.SpawnFromPool("Enemy", transform.position, Quaternion.identity);
+                enemyPooler.SpawnFromPool("Enemy", spawnPoint.position, Quaternion.identity);
                 numberSpawnedEnemy1++;
             }
+
             specialEnemyCountDown++;
             if (specialEnemyCountDown == 5)
             {
                 if(numberSpawnedEnemy2 < 1)
                 {
-                    enemyPooler.SpawnFromPool("Enemy2", transform.position, Quaternion.identity);
+                    enemyPooler.SpawnFromPool("Enemy2", spawnPoint.position, Quaternion.identity);
                     numberSpawnedEnemy2++;
                 }
-                
             }
-            
         }
     }
 }
