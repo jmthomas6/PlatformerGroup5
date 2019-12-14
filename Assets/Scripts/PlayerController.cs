@@ -12,24 +12,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator _anim;
     [SerializeField]
-    private GroundCheck _climbTiggerBottom, _climbTriggerTop;
+    private GroundCheck _climbTiggerBottom, _climbTriggerTop, _attackObj;
     [SerializeField]
     private Rigidbody2D _rb;
     [SerializeField]
     private Transform _parent;
-    [SerializeField]
-    private GameObject _attackObj;
+    //[SerializeField]
+    //private GameObject _attackObj;
     [SerializeField]
     private SpriteRenderer _rend;
     [SerializeField]
     private List<Sprite> _climbFrames;
     [SerializeField]
     private Vector2 _damageVel;
+    [SerializeField]
+    private int _health;
 
-    private bool _grounded, _doubleJump, _inCombat, _freezeMovement;
+    private bool _grounded, _doubleJump, _inCombat, _freezeMovement, _attackWindow, _dead;
     private float _attackTimer;
     private float _baseScale;
     private UIController _gc;
+    private Coroutine _attackAnim;
 
     private void Start()
     {
@@ -45,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!_gc.isPaused)
+        if (!_gc.isPaused && !_dead)
         {
             _attackTimer += Time.deltaTime;
             if (!_freezeMovement && _gc.gameStarted)
@@ -109,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.X) && _attackTimer > _attackCooldown && _grounded)
                 {
-                    StartCoroutine(Attack());
+                    _attackAnim = StartCoroutine(AttackAnim());
                     _attackTimer = 0f;
                 }
 
@@ -120,6 +123,12 @@ public class PlayerController : MonoBehaviour
                 {
                     _inCombat = !_inCombat;
                 }
+            }
+
+            if (_attackWindow && _attackObj.grounded)
+            {
+                _attackWindow = false;
+                _attackObj.col.gameObject.GetComponentInChildren<EnemyController>().Damage(new Vector2(_damageVel.x * Mathf.Sign(_parent.localScale.x), _damageVel.y));
             }
         }
     }
@@ -165,17 +174,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator Attack()
+    private IEnumerator AttackAnim()
     {
         _anim.SetTrigger("Attack");
         _freezeMovement = true;
         _rb.constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(0.1f);
 
-        _attackObj.SetActive(true);
+        _attackWindow = true;
         yield return new WaitForSeconds(0.2f);
 
-        _attackObj.SetActive(false);
+        _attackWindow = false;
         _freezeMovement = false;
         _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return null;
@@ -217,5 +226,32 @@ public class PlayerController : MonoBehaviour
         _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         _anim.enabled = true;
         yield return null;
+    }
+
+    public void Damage(Vector2 flinchDirection)
+    {
+        if (_attackAnim != null)
+        {
+            //StopCoroutine(_attackAnim);
+        }
+
+        _health--;
+        if (_health > 0)
+        {
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            Vector2 vel = _rb.velocity;
+            vel += flinchDirection;
+            _rb.velocity = vel;
+            _dead = false;
+            // UPDATE UI
+        }
+        else if (_health == 0)
+        {
+            _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            _parent.transform.GetComponent<Collider2D>().enabled = false;
+            _anim.SetTrigger("Recover");
+            _dead = true;
+            // GAME OVER
+        }
     }
 }

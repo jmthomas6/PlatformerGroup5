@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 3938227470080279370}
   - component: {fileID: 6179220753236288764}
   - component: {fileID: 3674875221105216268}
-  - component: {fileID: 1236392885376746915}
   - component: {fileID: 3800273188290012788}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: MovementObj
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,53 +75,21 @@ MonoBehaviour:
   _acceleration: 6
   _speed: 10
   _slowLimit: 6
-  _attackCooldown: 1
-  _attackRange: 1
+  _attackRange: 0.5
   _combatRange: 5
   _waitMin: 1
   _waitMax: 3
   _combatTimer: 3
   _anim: {fileID: 5519056552688128188}
   _ledgeChecker: {fileID: 2649221354839833369}
+  _attackObj: {fileID: 7695021461950788488}
   _rb: {fileID: 5519056552638291342}
-  _attackObj: {fileID: 4247160167286209809}
   _rend: {fileID: 5519056552688128187}
-  _damageVel: {x: 5, y: 5}
-  _obstacleCheckOffset: {x: 0, y: 0, z: 0}
-  _ledgeCheckOffset: {x: 0, y: 0, z: 0}
---- !u!114 &1236392885376746915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3410182472727043049}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebe78fce204f57342ba427bc7c9ab976, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _acceleration: 10
-  _speed: 15
-  _slowLimit: 10
-  _jumpVelocity: 50
-  _attackCooldown: 0.25
-  _climbSpeed: 0.1
-  _climbHeight: 0
-  _anim: {fileID: 5519056552688128188}
-  _climbTiggerBottom: {fileID: 0}
-  _climbTriggerTop: {fileID: 2649221354839833369}
-  _rb: {fileID: 5519056552638291342}
-  _parent: {fileID: 5519056552638291345}
-  _attackObj: {fileID: 4247160167286209809}
-  _rend: {fileID: 5519056552688128187}
-  _climbFrames:
-  - {fileID: 21300048, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
-  - {fileID: 21300050, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
-  - {fileID: 21300052, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
-  - {fileID: 21300054, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
-  - {fileID: 21300062, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
-  _damageVel: {x: 0, y: 0}
+  _damageVel: {x: -20, y: 20}
+  _attackCooldownMM: {x: 1, y: 3}
+  _obstacleCheckOffset: {x: -0.4, y: 0, z: 0}
+  _ledgeCheckOffset: {x: -1, y: -1, z: 0}
+  _health: 5
 --- !u!114 &3800273188290012788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +103,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grounded: 0
+  col: {fileID: 0}
+  tagCheck: Ground
+  _includeLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &4247160167286209809
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,9 +119,10 @@ GameObject:
   - component: {fileID: 5461097794547585842}
   - component: {fileID: 3669684677674603900}
   - component: {fileID: 3622789005138940476}
-  m_Layer: 8
+  - component: {fileID: 7695021461950788488}
+  m_Layer: 12
   m_Name: AttackTrigger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -233,6 +206,24 @@ CircleCollider2D:
   m_Offset: {x: 0.25, y: -0.25}
   serializedVersion: 2
   m_Radius: 0.75
+--- !u!114 &7695021461950788488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247160167286209809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442fd391835464140a91c46c24580758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grounded: 0
+  col: {fileID: 0}
+  tagCheck: Player
+  _includeLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &5519056552638291341
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5519056552688128185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.071, y: -0.058, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.14, y: 1.14, z: 1.14}
   m_Children: []
   m_Father: {fileID: 5519056552638291345}
@@ -433,7 +424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2919800021364603690
 Transform:
   m_ObjectHideFlags: 0
@@ -487,3 +478,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grounded: 0
+  col: {fileID: 0}
+  tagCheck: 
+  _includeLayers:
+    serializedVersion: 2
+    m_Bits: 0

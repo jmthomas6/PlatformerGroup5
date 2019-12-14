@@ -1694,7 +1694,7 @@ GameObject:
   - component: {fileID: 7321381324247331279}
   - component: {fileID: 2327570764661323223}
   - component: {fileID: 8808407017009731458}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3927,7 +3927,7 @@ GameObject:
   - component: {fileID: 462126015532349352}
   - component: {fileID: 174994190109915297}
   - component: {fileID: 2525006897476189019}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottom
   m_TagString: Ground
   m_Icon: {fileID: 0}

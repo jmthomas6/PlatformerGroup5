@@ -11,24 +11,24 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private Animator _anim;
     [SerializeField]
-    private GroundCheck _ledgeChecker;
+    private GroundCheck _ledgeChecker, _attackObj;
     [SerializeField]
     private Rigidbody2D _rb;
-    [SerializeField]
-    private GameObject _attackObj;
     [SerializeField]
     private SpriteRenderer _rend;
     [SerializeField]
     private Vector2 _damageVel, _attackCooldownMM;
     [SerializeField]
     private Vector3 _obstacleCheckOffset, _ledgeCheckOffset;
+    [SerializeField]
+    private int _health;
 
     private GroundCheck _gc;
-    private bool _grounded, _inCombat, _freezeMovement;
+    private bool _grounded, _inCombat, _freezeMovement, _attackWindow, _dead;
     private float _attackTimer, _baseScale, _timeOutCombat, _attackCooldown;
     private RaycastHit2D _playerCheck, _obstacleCheck;
     private int _layerMask;
-    private Coroutine _patrolling, _pursuing;
+    private Coroutine _patrolling, _pursuing, _startled, _attackAnim;
 
     private void Start()
     {
@@ -49,40 +49,49 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _attackTimer += Time.deltaTime;
-        Vector3 startPos = _obstacleCheckOffset;
-        startPos.x *= Mathf.Sign(_parent.localScale.x);
-        _playerCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange);
-        _obstacleCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _attackRange);
-        if (_playerCheck.collider != null && _playerCheck.collider.transform.tag == "Player" && !_inCombat)
+        if (!_dead)
         {
-            _inCombat = true;
-            if (_pursuing != null)
+            _attackTimer += Time.deltaTime;
+            Vector3 startPos = _obstacleCheckOffset;
+            startPos.x *= Mathf.Sign(_parent.localScale.x);
+            _playerCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _combatRange);
+            _obstacleCheck = Physics2D.Raycast(transform.position + startPos, Vector2.left * Mathf.Sign(_parent.localScale.x), _attackRange);
+            if (_playerCheck.collider != null && _playerCheck.collider.transform.tag == "Player" && !_inCombat)
             {
-                StopCoroutine(_pursuing);
+                _inCombat = true;
+                if (_pursuing != null)
+                {
+                    StopCoroutine(_pursuing);
+                }
+                _pursuing = StartCoroutine(Pursue());
+                _timeOutCombat = 0f;
             }
-            _pursuing = StartCoroutine(Pursue());
-            _timeOutCombat = 0f;
-        }
-        else if ((_playerCheck.collider == null || (_playerCheck.collider != null && _playerCheck.collider.transform.tag != "Player")) && _timeOutCombat < _combatTimer)
-        {
-            _timeOutCombat += Time.deltaTime;
-        }
-        if (_timeOutCombat >= _combatTimer && _inCombat)
-        {
-            _inCombat = false;
-            if (_patrolling != null)
+            else if ((_playerCheck.collider == null || (_playerCheck.collider != null && _playerCheck.collider.transform.tag != "Player")) && _timeOutCombat < _combatTimer)
             {
-                StopCoroutine(_patrolling);
+                _timeOutCombat += Time.deltaTime;
             }
-            _patrolling = StartCoroutine(Patrol());
-        }
+            if (_timeOutCombat >= _combatTimer && _inCombat)
+            {
+                _inCombat = false;
+                if (_patrolling != null)
+                {
+                    StopCoroutine(_patrolling);
+                }
+                _patrolling = StartCoroutine(Patrol());
+            }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) // REMOVE AFTER TESTING
-        {
-            Damage(new Vector2(25f, 25f));
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) // REMOVE AFTER TESTING
+            {
+                //Damage(new Vector2(25f, 25f));
+            }
+            UpdateAnim();
+
+            if (_attackWindow && _attackObj.grounded)
+            {
+                _attackObj.col.gameObject.GetComponentInChildren<PlayerController>().Damage(new Vector2(_damageVel.x * Mathf.Sign(_parent.localScale.x), _damageVel.y));
+                _attackWindow = false;
+            }
         }
-        UpdateAnim();
     }
 
     private void UpdateAnim()
@@ -124,10 +133,11 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator Patrol()
     {
-        print("patrolling!");
+        //print("patrolling!");
         while (true)
         {
-            _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            if (!_dead)
+                _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             
             float waitTimer = Random.Range(_waitMin, _waitMax);
             float t = 0;
@@ -136,7 +146,8 @@ public class EnemyController : MonoBehaviour
                 t += Time.deltaTime;
                 yield return null;
             }
-            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            if (!_dead)
+                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (_inCombat)
             {
                 break;
@@ -165,7 +176,7 @@ public class EnemyController : MonoBehaviour
                 yield return null;
                 
                 yield return new WaitForEndOfFrame();
-                if (!LedgeCheck() || _obstacleCheck.collider != null || _inCombat)
+                if ((!LedgeCheck() && _gc.grounded) || _obstacleCheck.collider != null || _inCombat)
                 {
                     _rb.velocity = Vector2.zero;
                     break;
@@ -177,7 +188,7 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator Pursue()
     {
-        print("pursuing!");
+        //print("pursuing!");
         while (_inCombat)
         {
             while (true) // Run
@@ -203,12 +214,14 @@ public class EnemyController : MonoBehaviour
                 while (_obstacleCheck.collider != null && _obstacleCheck.collider.transform.tag == "Player")
                 {
                     _rb.velocity = Vector2.zero;
-                    _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-                    StartCoroutine(Attack());
+                    if (!_dead)
+                        _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+                    _attackAnim = StartCoroutine(AttackAnim());
                     yield return new WaitForSeconds(_attackCooldown);
                 }
-                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-                if (!LedgeCheck() || (_obstacleCheck.collider != null && _obstacleCheck.collider.transform.tag != "Player"))
+                if (!_dead)
+                    _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                if ((!LedgeCheck() && _gc.grounded) || (_obstacleCheck.collider != null && _obstacleCheck.collider.transform.tag != "Player"))
                 {
                     _rb.velocity = Vector2.zero;
                     _parent.localScale = new Vector3(-_parent.localScale.x, _parent.localScale.y, 1f);
@@ -217,22 +230,25 @@ public class EnemyController : MonoBehaviour
             }
             yield return null;
         }
-        _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if (!_dead)
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return null;
     }
 
-    private IEnumerator Attack()
+    private IEnumerator AttackAnim()
     {
-        print("attacking!");
         _anim.SetTrigger("Attack");
         _freezeMovement = true;
-        yield return new WaitForSeconds(0.1f);
-
-        _attackObj.SetActive(true);
+        _rb.constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(0.2f);
 
-        _attackObj.SetActive(false);
+        _attackWindow = true;
+        yield return new WaitForSeconds(0.1f);
+
+        _attackWindow = false;
         _freezeMovement = false;
+        if (!_dead)
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return null;
     }
 
@@ -246,17 +262,39 @@ public class EnemyController : MonoBehaviour
         {
             StopCoroutine(_pursuing);
         }
-        _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        Vector2 vel = _rb.velocity;
-        vel += flinchDirection;
-        _rb.velocity = vel;
-        StartCoroutine(Startled());
+        if (_startled != null)
+        {
+            StopCoroutine(_startled);
+        }
+        if (_attackAnim != null)
+        {
+            StopCoroutine(_attackAnim);
+        }
+
+        _health--;
+        if (_health > 0)
+        {
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            Vector2 vel = _rb.velocity;
+            vel += flinchDirection;
+            _rb.velocity = vel;
+            _anim.SetTrigger("Hurt");
+            _startled = StartCoroutine(Startled());
+        }
+        else if (_health == 0)
+        {
+            _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            _parent.transform.GetComponent<Collider2D>().enabled = false;
+            _anim.SetTrigger("Recover");
+            _dead = true;
+            // ADD 1 to KILL COUNT
+        }
     }
 
     private IEnumerator Startled()
     {
         yield return new WaitForSeconds(0.25f);
-        while (!_gc.grounded)
+        //while (!_gc.grounded)
         {
             yield return null;
         }

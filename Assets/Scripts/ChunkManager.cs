@@ -34,7 +34,7 @@ public class ChunkManager : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
                 {
-                    print(_player.position.y + ", " + x.transform.position.y);
+                    //print(_player.position.y + ", " + x.transform.position.y);
                     x.GetComponentInChildren<TilemapCollider2D>().enabled = false;
                 }
             }

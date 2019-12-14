@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6160601475364277052}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: Untagged
+  m_TagString: SpawnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   specialEnemyCountDown: 0
+  numberSpawnedEnemy1: 0
+  numberSpawnedEnemy2: 0
 --- !u!61 &6160601475364277052
 BoxCollider2D:
   m_ObjectHideFlags: 0

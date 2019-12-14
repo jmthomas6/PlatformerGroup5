@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 2724289822846126959}
   - component: {fileID: 28255824609267198}
   - component: {fileID: 418060283189490617}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap (8)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 4796255189979063606}
   m_Layer: 0
   m_Name: Top
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -843,9 +843,9 @@ GameObject:
   - component: {fileID: 5335418959492210378}
   - component: {fileID: 5335418959492210388}
   - component: {fileID: 5335418959492210389}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1104,7 +1104,7 @@ GameObject:
   - component: {fileID: 5335418959702775579}
   - component: {fileID: 5335418959702775576}
   - component: {fileID: 5335418959702775577}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -5031,7 +5031,7 @@ GameObject:
   - component: {fileID: 5335418960007753535}
   - component: {fileID: 5335418960007753532}
   - component: {fileID: 5335418960007753533}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -7301,7 +7301,7 @@ GameObject:
   - component: {fileID: 3948610578845148674}
   - component: {fileID: 1831877176735952773}
   - component: {fileID: 8333379448228380212}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap (7)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -8177,7 +8177,7 @@ GameObject:
   - component: {fileID: 8815941725579531352}
   - component: {fileID: 2330562227374081580}
   - component: {fileID: 5176860836111609782}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottom
   m_TagString: Ground
   m_Icon: {fileID: 0}
